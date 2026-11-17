@@ -18,8 +18,10 @@ export interface ActivityOption {
   whyFun: string;
 }
 
-export interface PetPeeveOption {
+export interface NaughtyListOption {
   id: string;
+  icon: string;
+  grinchTitle: string;
   label: string;
 }
 
@@ -32,8 +34,8 @@ export const CAST_MEMBERS: CastMember[] = [
     accentHex: '#1E5AA8',
     avatarSrc: './assets/avatar-pedro.jpg',
     greeting:
-      'Furry Otter-hood & mystical Airbender robes engaged! Crosswords, Island woodworkers, Messi & Argentina SOCCER pride, and winning Xmas back from Woody Claus!',
-    coffeePlaceholder: 'e.g., Morning roast coffee, yerba mate, crunchy snacks...',
+      'Merry Christmas, Grand Otter! Furry otter-hood & mystical Airbender robes engaged for fireside crosswords, Island woodworkers, Messi & Argentina SOCCER cheer, and winning Christmas back from Woody Claus!',
+    coffeePlaceholder: 'e.g., Morning roast coffee, yerba mate, holiday biscotti, crunchy snacks...',
   },
   {
     id: 'cathy',
@@ -43,8 +45,8 @@ export const CAST_MEMBERS: CastMember[] = [
     accentHex: '#C9425A',
     avatarSrc: './assets/avatar-cathy.jpg',
     greeting:
-      'Welcome GOTY! Your kitchen apron is officially BANNED Dec 10–14—Markus is cooking while you read to Barclay (and politely turn down lovestruck Woody Claus!).',
-    coffeePlaceholder: 'e.g., Morning tea or latte, favorite bakery pastry or treat...',
+      'Merry Christmas, GOTY! By official North Pole decree, your kitchen apron is retired Dec 10–14—Chef Markus is cooking every feast while you read Christmas stories to Barclay (and dodge lovestruck Woody Claus!).',
+    coffeePlaceholder: 'e.g., Morning tea or holiday latte, shortbread, bakery pastry...',
   },
   {
     id: 'tommy',
@@ -54,140 +56,180 @@ export const CAST_MEMBERS: CastMember[] = [
     accentHex: '#1B5E3A',
     avatarSrc: './assets/avatar-tommy.jpg',
     greeting:
-      'Coach & Multi-Screen NFL Command HQ is live! Live American football (NFL) streams, original party games, 2x podcasts, holiday cinema, and zero rushing.',
-    coffeePlaceholder: 'e.g., Cold brew / espresso, NFL game-day snacks, sparkling water...',
+      'Merry Christmas, Game Master! Sleigh-Bell NFL Command HQ is ready—multi-screen December American football (NFL) streams, holiday tabletop games, classic Christmas cinema, and zero rushing!',
+    coffeePlaceholder: 'e.g., Cold brew / espresso, NFL game-day snacks, peppermint bark...',
   },
   {
     id: 'tricia',
     name: 'Tricia',
     heroTitle: 'Captain Breathing-Room',
-    rosterBadge: '#5 · Guardian of Calm',
+    rosterBadge: '#5 · Guardian of Silent Nights',
     accentHex: '#257BA0',
     avatarSrc: './assets/avatar-tricia.jpg',
     greeting:
-      'Nap-Time Sanctuary protected! Cozy West Coast mornings, twinkling lights, and zero weekday chore stress.',
-    coffeePlaceholder: 'e.g., Oat latte, favorite holiday chocolate or fruit...',
+      'Silent-Night Sanctuary active! Unhurried pajama Christmas mornings, twinkling lights, and cozy fireside breathing room.',
+    coffeePlaceholder: 'e.g., Holiday oat latte, dark chocolate oranges, mandarins...',
   },
   {
     id: 'markus',
     name: 'Markus',
     heroTitle: 'Holiday Feast Hero',
-    rosterBadge: '#1 · Feast & Hype Captain',
+    rosterBadge: '#1 · Chief Christmas Elf & Chef',
     accentHex: '#2B6E84',
     avatarSrc: './assets/avatar-markus.jpg',
     greeting:
-      'Apron locked & loaded! Ready to spoil everyone with zero-stress feasts and top-voted Island adventures.',
-    coffeePlaceholder: 'e.g., Double espresso & cinnamon rolls...',
+      'Christmas apron tied & sleigh bells ringing! Ready to spoil the whole family with crackling-hearth feasts and top-wished Island magic.',
+    coffeePlaceholder: 'e.g., Double espresso & warm cinnamon rolls...',
   },
 ];
 
 export const VERIFIED_VICTORIA_ACTIVITIES: ActivityOption[] = [
   {
     id: 'stocking_morning',
-    title: 'Pajama Secret Stocking Reveal, Cinnamon Rolls & GOTY Storytime',
-    windowLabel: 'Sat or Sun Morning · Cozy Home',
+    title: 'Pajama Secret Stocking Reveal, Warm Cinnamon Rolls & GOTY Storytime',
+    windowLabel: 'Sat or Sun Morning · Cozy Fireside',
     windowTone: 'family-morning',
     summary:
-      'Slow pajama morning around the tree revealing our 5-Adult Secret Stocking Ring ($35–$50 carry-on treats) + Barclay’s mini-stocking.',
-    whyFun: 'Fresh coffee, warm pastries, GOTY picture books, and backyard soccer touches.',
+      'Slow pajama morning around the Christmas tree unwrapping our 5-Adult Secret Stocking Ring ($35–$50 carry-on treasures) + Chief Elf Barclay’s mini-stocking.',
+    whyFun: 'Fresh coffee, warm frosted pastries, GOTY Christmas storybooks, and backyard soccer touches.',
   },
   {
     id: 'butchart_lights',
     title: 'The Magic of Christmas at Butchart Gardens + Rose Carousel',
-    windowLabel: 'Sat or Sun 3:30–5:45 PM · With Barclay',
+    windowLabel: 'Sat or Sun 3:30–5:45 PM · Twinkle Walk w/ Barclay',
     windowTone: 'twinkle-afternoon',
     summary:
-      '300,000+ twinkling Christmas lights at dusk, Twelve Days of Christmas displays, hot cocoa, and indoor heated Carousel rides for Barclay.',
-    whyFun: 'Iconic Vancouver Island holiday magic timed cleanly between nap and 7pm bedtime.',
+      '300,000+ twinkling Christmas lights at dusk, Twelve Days of Christmas displays, steaming hot cocoa, and indoor heated Carousel rides for Barclay.',
+    whyFun: 'Pure Vancouver Island Christmas wonderland timed gently between nap and 7pm bedtime.',
   },
   {
     id: 'adult_friday_lunch',
-    title: 'Lingering Oceanview or Harbour Adult Brunch / Lunch',
-    windowLabel: 'Fri Dec 11 (8am–5pm) · Adult-Only Window!',
+    title: 'Festive Oceanview or Inner Harbour Adult Christmas Lunch',
+    windowLabel: 'Fri Dec 11 (8am–5pm) · Golden Adult-Only Window!',
     windowTone: 'adult-friday',
     summary:
-      'Barclay is at Cridge daycare all day Friday—our golden window for an unhurried 5-adult sit-down meal (Oak Bay oceanview or Inner Harbour).',
-    whyFun: 'Zero toddler highchair timer—just great food, views, and conversation.',
+      'Barclay is at Cridge daycare all day Friday—our golden Christmas gift of an unhurried 5-adult sit-down feast (Oak Bay oceanview or Inner Harbour).',
+    whyFun: 'Zero toddler highchair timer—just clinking glasses, holiday cheer, and ocean views.',
   },
   {
     id: 'pampered_home_feasts',
-    title: 'Chef Markus’s Pampered Home Feasts (Cathy 100% Off Duty!)',
-    windowLabel: 'Evenings 7:00 PM+ · Cozy Home',
+    title: 'Chef Markus’s Candlelit Christmas Home Feasts (Cathy 100% Pampered!)',
+    windowLabel: 'Evenings 7:00 PM+ · By the Christmas Tree',
     windowTone: 'cozy-evening',
     summary:
-      'West Coast salmon bake, slow-braised comfort dinner, and our marquee Narbaitz Family Christmas Feast while Cathy relaxes.',
-    whyFun: 'Barclay eats at 5:30pm and sleeps at 7pm so adults dine in total peace.',
+      'West Coast cedar-plank salmon, slow-braised winter comfort dinner, and our marquee Narbaitz Family Christmas Feast while Cathy relaxes by the tree.',
+    whyFun: 'Barclay eats at 5:30pm and tucks in at 7pm so the adults dine in warm holiday peace.',
   },
   {
     id: 'gamemaster_football_lounge',
-    title: 'Tommy’s Game Master, Multi-Screen Live NFL & Holiday Movie Nights',
-    windowLabel: 'Post-7pm Evenings · Cozy Home',
+    title: 'Tommy’s Reindeer Games, Multi-Screen Live NFL & Christmas Movie Nights',
+    windowLabel: 'Post-7pm Evenings · Slippers & Eggnog HQ',
     windowTone: 'cozy-evening',
     summary:
-      'Original tabletop/dice games led by Tommy, live Thu/Sat/Sun American football (NFL) multi-screen streams, Pedro’s crossword/Connections & Messi soccer highlights, and a holiday movie.',
-    whyFun: 'Maximum laughs in slippers with zero driving in the dark.',
+      'Festive tabletop/dice games hosted by Tommy, live Thu/Sat/Sun December NFL football streams, Pedro’s crosswords & Messi soccer highlights, and a Christmas classic.',
+    whyFun: 'Maximum belly laughs in Christmas slippers with zero driving in the dark.',
   },
   {
     id: 'moss_street_ocean_walk',
-    title: 'Moss Street Holiday Market + Dallas Rd Oceanfront Stroll',
+    title: 'Moss Street Yuletide Market + Dallas Rd Winter Ocean Stroll',
     windowLabel: 'Sat Dec 12 or Sun Dec 13 · 10:00–11:30 AM',
     windowTone: 'family-morning',
     summary:
-      'Local Vancouver Island woodworkers, makers, and cider at Fairfield’s festive market, plus a crisp flat seaside walk by the Breakwater.',
-    whyFun: 'Tailor-made for woodworking fans, fresh ocean air, and easy stroller rolling.',
+      'Local Vancouver Island woodworkers, holiday artisans, and hot mulled cider at Fairfield’s festive market, plus a crisp flat seaside walk by the Breakwater.',
+    whyFun: 'Tailor-made for master woodworkers, brisk sea air, and easy stroller rolling.',
   },
   {
     id: 'havn_floating_sauna',
-    title: 'HAVN Floating Harbour Sauna & Hot Tub Boat (19+)',
-    windowLabel: 'Fri Dec 11 (8am–5pm) · Adult-Only Window!',
+    title: 'HAVN Floating Harbour Cedar Sauna & Hot Tub Ship (19+)',
+    windowLabel: 'Fri Dec 11 (8am–5pm) · Golden Adult-Only Window!',
     windowTone: 'adult-friday',
     summary:
-      'Restored 1943 ship barge in the Inner Harbour with cedar saunas, outdoor hot mineral tubs, and seaplane views.',
-    whyFun: 'Pure Nordic coastal relaxation during Friday’s child-free daycare window.',
+      'Restored 1943 ship barge in the festive Inner Harbour with aromatic cedar saunas, steaming outdoor mineral tubs, and seaplane views.',
+    whyFun: 'Pure Nordic winter warmth during Friday’s child-free daycare window.',
   },
   {
     id: 'gingerbread_showcase',
-    title: '18th Annual Gingerbread Showcase (Hotel Grand Pacific) & Harbour Walk',
-    windowLabel: 'Sat or Sun Morning · With Barclay',
+    title: '18th Annual Giant Gingerbread Showcase & Festival of Trees',
+    windowLabel: 'Sat or Sun Morning · Cozy Indoor Wonder',
     windowTone: 'family-morning',
     summary:
-      'Incredible giant architectural gingerbread sculptures ("Where Dreams Come True") right by the Inner Harbour + optional Festival of Trees.',
-    whyFun: 'Warm, indoor, whimsical, and super easy before Barclay’s noon nap.',
+      'Towering architectural gingerbread masterpieces ("Where Dreams Come True") right by the Inner Harbour + sparkling decorated Christmas trees.',
+    whyFun: 'Warm, cinnamon-scented indoor holiday magic before Barclay’s noon nap.',
   },
   {
     id: 'craigdarroch_castle',
-    title: 'Craigdarroch Castle Victorian Christmas Tour (87 Oak Stairs)',
-    windowLabel: 'Fri Dec 11 (10am–4:30pm) · Adult-Only Window!',
+    title: 'Craigdarroch Castle Victorian Christmas Trim & Woodwork Tour',
+    windowLabel: 'Fri Dec 11 (10am–4:30pm) · Golden Adult-Only Window!',
     windowTone: 'adult-friday',
     summary:
-      '1890 historic mansion decked in full Victorian Christmas trim and museum-grade oak woodwork (no strollers, so ideal for Friday!).',
-    whyFun: 'Spectacular craftsmanship and holiday history for anyone keen to explore.',
+      '1890 Scottish baronial castle decked inauthentic Victorian holly, wreaths, and museum-grade hand-carved oak woodwork (87 stairs, no strollers—ideal for Friday!).',
+    whyFun: 'Old-world Christmas craftsmanship for anyone keen to explore.',
   },
   {
     id: 'hatley_or_horse_trolley',
-    title: 'Hatley Castle Holiday Grounds OR Downtown Free Horse-Drawn Trolley',
-    windowLabel: 'Sat or Sun 2:30–4:30 PM · Post-Nap',
+    title: 'Hatley Castle Holiday Grounds OR Downtown Jingle-Bell Horse Trolley',
+    windowLabel: 'Sat or Sun 2:30–4:30 PM · Post-Nap Sleigh Vibes',
     windowTone: 'twinkle-afternoon',
     summary:
-      'Edwardian Hatley Castle & optional Tally Ho carriage ride, OR Unwrap Downtown’s free horse-drawn trolley + Bastion Square Winter Market.',
-    whyFun: 'Storybook afternoon holiday charm before heading home for cozy dinner.',
+      'Storybook Hatley Castle & optional Tally Ho carriage ride, OR Unwrap Downtown’s free horse-drawn Christmas trolley + Bastion Square Yuletide Market.',
+    whyFun: 'Classic sleigh-bell afternoon charm before heading home for hot dinner.',
   },
 ];
 
-export const PET_PEEVE_OPTIONS: PetPeeveOption[] = [
-  { id: 'hangry_late_meals', label: 'Waiting past 7:00 PM hungry with no food plan' },
-  { id: 'early_alarms', label: 'Early alarms or rushed mornings before coffee' },
-  { id: 'overpacked_schedule', label: 'Over-packed schedule with zero reading / couch downtime' },
-  { id: 'crowds_lines', label: 'Crowded tourist traps or standing in long lines' },
-  { id: 'stairs_cold_rain', label: 'Too many stairs or standing around in cold rain' },
-  { id: 'kitchen_dishes_stress', label: 'Anyone feeling stuck cooking or doing dishes all night' },
-  { id: 'too_much_driving', label: 'Too much back-and-forth driving in traffic' },
-  { id: 'missing_games_puzzles', label: 'Missing big NFL / soccer games or quiet morning puzzle time' },
+export const NAUGHTY_LIST_OPTIONS: NaughtyListOption[] = [
+  {
+    id: 'early_alarms',
+    icon: '⏰',
+    grinchTitle: 'The Crack-of-Dawn Rooster Elf',
+    label: 'Early alarms or rushed mornings before hot coffee & pastries',
+  },
+  {
+    id: 'hangry_late_meals',
+    icon: '🍽️',
+    grinchTitle: 'The Rumbling-Belly Grinch',
+    label: 'Waiting past 7:00 PM hungry without snacks or a dinner plan',
+  },
+  {
+    id: 'overpacked_schedule',
+    icon: '🛋️',
+    grinchTitle: 'Runaway Sleigh Whiplash',
+    label: 'Over-packed schedule with zero fireside book, nap, or couch time',
+  },
+  {
+    id: 'crowds_lines',
+    icon: '🎟️',
+    grinchTitle: 'Frostbitten Velvet-Rope Lines',
+    label: 'Standing in long tourist queues instead of cozy holiday magic',
+  },
+  {
+    id: 'stairs_cold_rain',
+    icon: '🌧️',
+    grinchTitle: 'Soggy Mittens & Steep Stairs',
+    label: 'Too many stairs or shivering outside in cold December rain',
+  },
+  {
+    id: 'kitchen_dishes_stress',
+    icon: '🧽',
+    grinchTitle: 'The Midnight Dish-Sink Gremlin',
+    label: 'Anyone feeling stuck cooking or scrubbing pots all night',
+  },
+  {
+    id: 'too_much_driving',
+    icon: '🚗',
+    grinchTitle: 'Gridlock Reindeer Traffic',
+    label: 'Too much back-and-forth driving across town in dark traffic',
+  },
+  {
+    id: 'missing_games_puzzles',
+    icon: '🏈',
+    grinchTitle: 'Fumbled Kickoffs & Unfinished Crosswords',
+    label: 'Missing live NFL games, Messi soccer highlights, or morning puzzle time',
+  },
 ];
 
 export const PACE_LABELS: Record<number, string> = {
-  1: '1 · Pure Cozy Pajamas, Books & Home Feasts',
-  2: '2 · Mostly Chill at Home + 1 Easy Outing a Day',
-  3: '3 · Balanced Mix of Cozy Home & Island Highlights',
-  4: '4 · Up for Exploring Whenever the Window Opens!',
+  1: '1 · Pure Yule Log Mode (Pajamas, Storybooks & Home Feasts)',
+  2: '2 · Silent Night Chill + 1 Easy Twinkle Outing a Day',
+  3: '3 · Classic Christmas Mix (Fireside Cozy + Island Magic)',
+  4: '4 · Full Sleigh-Bell Spirit Whenever the Window Opens!',
 };

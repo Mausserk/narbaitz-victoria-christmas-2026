@@ -63,7 +63,7 @@ export async function postBallotToSheetWebhook(
   if (!webhookUrl) {
     return {
       delivered: false,
-      note: 'Saved on your device! Tap "Share Ballot to Family Chat" or "Copy Emoji Ballot" below so Markus gets it right away.',
+      note: 'Sealed on your device with North Pole wax! Tap "Send Scroll to Family Chat" or "Copy Christmas Scroll" below so Santa’s Victoria elves get it right away.',
     };
   }
 
@@ -78,12 +78,12 @@ export async function postBallotToSheetWebhook(
     });
     return {
       delivered: true,
-      note: 'Logged directly to the Victoria Holiday Tracker Sheet — plus you can share your fun summary to the family chat below!',
+      note: 'Delivered straight to Santa’s Victoria Christmas Workshop Sheet — plus you can share your festive scroll to the family chat below!',
     };
   } catch {
     return {
       delivered: false,
-      note: 'Saved locally! Tap "Share Ballot to Family Chat" below so zero votes are missed.',
+      note: 'Sealed locally! Tap "Send Scroll to Family Chat" below so zero Christmas wishes are missed.',
     };
   }
 }
@@ -91,29 +91,29 @@ export async function postBallotToSheetWebhook(
 export function formatEmojiBallotReceipt(payload: VictoriaBallotPayload): string {
   const topFive = payload.rankedActivities
     .slice(0, 5)
-    .map((item) => `  #${item.rank} ${item.title}`)
+    .map((item) => `  🌟 #${item.rank} ${item.title}`)
     .join('\n');
   const skipTwo = payload.rankedActivities
     .slice(-2)
     .map((item) => item.title)
     .join(' · ');
-  const vetoes =
+  const naughtyItems =
     payload.vetoedPetPeeves.length > 0
       ? payload.vetoedPetPeeves.join('; ')
-      : 'Easygoing—nothing checked!';
-  const extraVeto = payload.customVetoNote ? ` (+ ${payload.customVetoNote})` : '';
+      : 'Pure Christmas cheer — zero coal needed!';
+  const extraNaughty = payload.customVetoNote ? ` (+ ${payload.customVetoNote})` : '';
   const symphonyLine = payload.symphonyCandlelightInterest
-    ? '\n🎻 Bonus Interest: Curious about Messiah by Candlelight!'
+    ? '\n🕯️🎻 Candlelight Carols Bonus: Curious about Messiah by Candlelight!'
     : '';
 
   return [
-    `🎄🎟️ VICTORIA CHRISTMAS BALLOT — ${payload.voterName.toUpperCase()} (${payload.heroTitle})`,
-    `⚡ Pace: ${payload.paceLabel}`,
-    `🏆 MY TOP 5 VICTORIA PICKS (Dec 10–14):`,
+    `🎄📜✨ VICTORIA CHRISTMAS WISH SCROLL — ${payload.voterName.toUpperCase()} (${payload.heroTitle})`,
+    `🕯️ Sleigh-Bell Pace: ${payload.paceLabel}`,
+    `🌟🎁 MY NICE LIST TOP 5 (Dec 10–14):`,
     topFive,
-    `💤 Lowest Priority / Easy Skip: ${skipTwo}`,
-    `🚫 BANNED TRIP RUINERS: ${vetoes}${extraVeto}`,
-    `☕ Kitchen Stock Order: ${payload.morningCoffeeAndTreats || 'Surprise me!'}`,
-    `🍽️🎲 Feast / Game / Movie Wish: ${payload.christmasFeastOrGameWish || 'Down for anything cozy!'}`,
+    `❄️ Save for Next Christmas: ${skipTwo}`,
+    `🪨🔥 ON SANTA'S NAUGHTY LIST (+Coal for Woody Claus!): ${naughtyItems}${extraNaughty}`,
+    `☕🍪 Christmas Morning Mug & Pantry Treats: ${payload.morningCoffeeAndTreats || 'Surprise me with holiday treats!'}`,
+    `🥧🎬🎲 Christmas Feast / Movie / Game Wish: ${payload.christmasFeastOrGameWish || 'Up for anything cozy by the tree!'}`,
   ].join('\n') + symphonyLine;
 }
