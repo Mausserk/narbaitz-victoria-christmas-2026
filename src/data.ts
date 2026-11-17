@@ -28,34 +28,34 @@ export const CAST_MEMBERS: CastMember[] = [
     id: 'pedro',
     name: 'Pedro',
     heroTitle: 'The Grand Otter',
-    rosterBadge: '#10 · Puzzler & Woodworker',
+    rosterBadge: '#10 · Airbender Puzzler & Soccer Ace',
     accentHex: '#1E5AA8',
     avatarSrc: './assets/avatar-pedro.jpg',
     greeting:
-      'The Grand Otter presides! Crosswords, local Island woodworkers, soccer touches with Barclay, and cozy feasts await.',
+      'Furry Otter-hood & mystical Airbender robes engaged! Crosswords, Island woodworkers, Messi & Argentina SOCCER pride, and winning Xmas back from Woody Claus!',
     coffeePlaceholder: 'e.g., Morning roast coffee, yerba mate, crunchy snacks...',
   },
   {
     id: 'cathy',
     name: 'Cathy',
     heroTitle: 'GOTY · Grandma of the Year',
-    rosterBadge: '#11 · Storyteller Laureate',
+    rosterBadge: '#11 · Athena-Librarian Laureate',
     accentHex: '#C9425A',
     avatarSrc: './assets/avatar-cathy.jpg',
     greeting:
-      'Welcome GOTY! Your kitchen apron is officially retired Dec 10–14—Markus is cooking so you get pure pampering & Barclay storytime!',
+      'Welcome GOTY! Your kitchen apron is officially BANNED Dec 10–14—Markus is cooking while you read to Barclay (and politely turn down lovestruck Woody Claus!).',
     coffeePlaceholder: 'e.g., Morning tea or latte, favorite bakery pastry or treat...',
   },
   {
     id: 'tommy',
     name: 'Tommy',
     heroTitle: 'The Game Master',
-    rosterBadge: '#12 · Coach & Multi-Screen Ace',
+    rosterBadge: '#12 · U14 Coach & Multi-Screen NFL Ace',
     accentHex: '#1B5E3A',
     avatarSrc: './assets/avatar-tommy.jpg',
     greeting:
-      'Coach & Game Master HQ is live! Multi-screen football streams, original party games, holiday cinema, and zero rushing.',
-    coffeePlaceholder: 'e.g., Cold brew / espresso, game-day snacks, sparkling water...',
+      'Coach & Multi-Screen NFL Command HQ is live! Live American football (NFL) streams, original party games, 2x podcasts, holiday cinema, and zero rushing.',
+    coffeePlaceholder: 'e.g., Cold brew / espresso, NFL game-day snacks, sparkling water...',
   },
   {
     id: 'tricia',
@@ -65,13 +65,13 @@ export const CAST_MEMBERS: CastMember[] = [
     accentHex: '#257BA0',
     avatarSrc: './assets/avatar-tricia.jpg',
     greeting:
-      'Nap-Time Sanctuary protected! Cozy mornings, twinkling lights, and zero weekday chore stress.',
+      'Nap-Time Sanctuary protected! Cozy West Coast mornings, twinkling lights, and zero weekday chore stress.',
     coffeePlaceholder: 'e.g., Oat latte, favorite holiday chocolate or fruit...',
   },
   {
     id: 'markus',
     name: 'Markus',
-    heroTitle: 'Super Unemployed Chef',
+    heroTitle: 'Holiday Feast Hero',
     rosterBadge: '#1 · Feast & Hype Captain',
     accentHex: '#2B6E84',
     avatarSrc: './assets/avatar-markus.jpg',
@@ -120,11 +120,11 @@ export const VERIFIED_VICTORIA_ACTIVITIES: ActivityOption[] = [
   },
   {
     id: 'gamemaster_football_lounge',
-    title: 'Tommy’s Game Master, Multi-Screen Football & Holiday Movie Nights',
+    title: 'Tommy’s Game Master, Multi-Screen Live NFL & Holiday Movie Nights',
     windowLabel: 'Post-7pm Evenings · Cozy Home',
     windowTone: 'cozy-evening',
     summary:
-      'Original tabletop/dice games led by Tommy, Pedro’s crossword/Connections rounds, live Thu/Sat/Sun football streams, and a holiday movie.',
+      'Original tabletop/dice games led by Tommy, live Thu/Sat/Sun American football (NFL) multi-screen streams, Pedro’s crossword/Connections & Messi soccer highlights, and a holiday movie.',
     whyFun: 'Maximum laughs in slippers with zero driving in the dark.',
   },
   {
@@ -182,7 +182,7 @@ export const PET_PEEVE_OPTIONS: PetPeeveOption[] = [
   { id: 'stairs_cold_rain', label: 'Too many stairs or standing around in cold rain' },
   { id: 'kitchen_dishes_stress', label: 'Anyone feeling stuck cooking or doing dishes all night' },
   { id: 'too_much_driving', label: 'Too much back-and-forth driving in traffic' },
-  { id: 'missing_games_puzzles', label: 'Missing big football games or quiet morning puzzle time' },
+  { id: 'missing_games_puzzles', label: 'Missing big NFL / soccer games or quiet morning puzzle time' },
 ];
 
 export const PACE_LABELS: Record<number, string> = {

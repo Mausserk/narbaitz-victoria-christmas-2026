@@ -126,9 +126,51 @@ function mountApp(): void {
   hero.append(heroImg, heroCopy);
   shell.appendChild(hero);
 
-  // 2. Secret Stocking Ring Refresher Card
+  // 2. West Coast Villain Alert: Woody Claus & The Silver Sizzler Slide!
+  const villainSec = el('section', 'section-card');
+  villainSec.appendChild(el('span', 'section-step', 'West Coast Lore Alert · Save Christmas!'));
+  villainSec.appendChild(
+    el('h2', 'section-title', 'Beware of Woody Claus — Thief of Christmas Cheer!')
+  );
+  villainSec.appendChild(
+    el(
+      'p',
+      'section-lead',
+      'Breaking Island dispatch: a 9-foot carved wooden Sasquatch in a Santa hat & beard has stolen all the West Coast Christmas cheer!'
+    )
+  );
+  const villainGrid = el('div', 'stocking-grid');
+  const villainImg = el('img', 'stocking-img');
+  villainImg.src = './assets/woody-claus-heist.jpg';
+  villainImg.alt =
+    'Woody Claus winking beside the Silver Sizzler Slide as Grand Otter Pedro, GOTY Cathy, and the Hero Squad arrive';
+  const villainList = el('ul', 'rule-list');
+  const villainBeats: Array<[string, string]> = [
+    [
+      '1. The Silver Sizzler Crush',
+      'Woody Claus fell head-over-wooden-heels in love with GOTY Cathy the day he saw her sizzle majestically down the Malahat Silver Sizzler Slide!',
+    ],
+    [
+      '2. His Lovestruck Forest Scheme',
+      'He thinks stealing all the Christmas cheer will force Cathy to trek into his mossy forest home and fall in love with him!',
+    ],
+    [
+      '3. Operation Win Back Christmas',
+      'Grand Otter Pedro, GOTY Cathy, Game Master Tommy, Tricia, Markus & Chief Elf Barclay are officially on the case—rank your favorite Victoria adventures below to power up the Squad!',
+    ],
+  ];
+  for (const [vHeading, vDetail] of villainBeats) {
+    const li = el('li', 'rule-item');
+    li.append(el('strong', undefined, vHeading), el('span', undefined, vDetail));
+    villainList.appendChild(li);
+  }
+  villainGrid.append(villainImg, villainList);
+  villainSec.appendChild(villainGrid);
+  shell.appendChild(villainSec);
+
+  // 3. Secret Stocking Ring Refresher Card
   const stockingSec = el('section', 'section-card');
-  stockingSec.appendChild(el('span', 'section-step', 'Quick Holiday Guide · Part 1'));
+  stockingSec.appendChild(el('span', 'section-step', 'Quick Holiday Guide · Stocking Rules'));
   stockingSec.appendChild(el('h2', 'section-title', 'The 5-Adult Secret Stocking Ring'));
   stockingSec.appendChild(
     el(
