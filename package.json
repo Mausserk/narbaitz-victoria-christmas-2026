@@ -1,0 +1,24 @@
+{
+  "name": "narbaitz-victoria-christmas-2026",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Whimsical mobile drag-to-rank holiday ballot & Secret Stocking Ring guide for the Narbaitz Victoria Christmas (Dec 10-14, 2026)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "securityAudit": {
+    "disallowedBundleStrings": [
+      "5114 Wilder",
+      "Door Code:",
+      "AIzaSy"
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5"
+  }
+}
