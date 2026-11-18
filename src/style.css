@@ -331,6 +331,179 @@ body {
   font-size: 0.96rem;
 }
 
+/* Mascot Weather Callout (Super El Niño Barclay) */
+.mascot-callout {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 13px;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: var(--radius-md);
+  background: var(--gold-soft);
+  border: 2px solid var(--border-ink);
+  box-shadow: 0 2px 0 var(--border-ink);
+}
+
+.mascot-avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid var(--border-ink);
+  flex-shrink: 0;
+}
+
+.mascot-copy strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--cranberry-deep);
+  margin-bottom: 2px;
+}
+
+.mascot-copy span {
+  font-size: 0.9rem;
+  color: var(--ink-primary);
+}
+
+/* Step 2: Option A Vibe Check Banner & Cards */
+.vibe-banner-frame {
+  border: 2.5px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--evergreen-deep);
+  box-shadow: 0 4px 0 var(--border-ink);
+  margin-bottom: 18px;
+}
+
+.vibe-banner-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: 2.5px solid var(--border-ink);
+}
+
+.vibe-banner-caption {
+  padding: 10px 14px;
+  color: #fffdf8;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.vibe-grid {
+  display: grid;
+  gap: 13px;
+}
+
+.vibe-card {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  background: var(--bg-parchment);
+  border: 2.5px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 15px 16px;
+  font: inherit;
+  color: var(--ink-primary);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+  transition: transform 0.13s ease, background-color 0.13s ease, box-shadow 0.13s ease;
+}
+
+.vibe-card:hover {
+  transform: translateY(-2px);
+  background: #fff9ec;
+}
+
+.vibe-card.is-selected {
+  background: linear-gradient(90deg, #fff6dc 0%, #fffdf8 100%);
+  border-color: var(--evergreen);
+  box-shadow: 0 0 0 3px var(--gold), var(--shadow-comic);
+  transform: translateY(-2px);
+}
+
+.vibe-icon-medal {
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  background: #ffffff;
+  border: 2px solid var(--border-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.vibe-card.is-selected .vibe-icon-medal {
+  background: var(--evergreen);
+  color: #ffffff;
+}
+
+.vibe-card-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.vibe-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.74rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--evergreen-soft);
+  color: var(--evergreen);
+  border: 1.5px solid rgba(18, 60, 46, 0.35);
+}
+
+.vibe-title {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 800;
+  line-height: 1.24;
+  color: var(--ink-primary);
+}
+
+.vibe-desc {
+  font-size: 0.92rem;
+  color: var(--ink-muted);
+  line-height: 1.42;
+}
+
+.vibe-select-pill {
+  margin-top: 4px;
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1.5px solid var(--border-ink);
+  color: var(--ink-primary);
+}
+
+.vibe-card.is-selected .vibe-select-pill {
+  background: var(--evergreen);
+  color: #ffffff;
+  border-color: var(--evergreen-deep);
+}
+
 /* Schedule Legend */
 .window-legend {
   display: flex;

@@ -1,8 +1,8 @@
 {
   "name": "narbaitz-victoria-christmas-2026",
   "private": true,
-  "version": "1.0.0",
-  "description": "Whimsical mobile drag-to-rank holiday ballot & Secret Stocking Ring guide for the Narbaitz Victoria Christmas (Dec 10-14, 2026)",
+  "version": "3.0.0",
+  "description": "Mobile-first Narbaitz Family Victoria December Dispatch (Dec 10-14, 2026): Option A Ottawa vs. Victoria holiday vibe check, Hurricane Tricia & Super El Nino comic roster, and split outing ranker",
   "type": "module",
   "scripts": {
     "dev": "vite",

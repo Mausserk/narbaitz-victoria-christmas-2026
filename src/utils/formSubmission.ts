@@ -1,15 +1,27 @@
+export interface RankedOptionEntry {
+  rank: number;
+  id: string;
+  title: string;
+  windowLabel: string;
+}
+
 export interface VictoriaBallotPayload {
+  schemaVersion: 'v3';
   submittedAtIso: string;
   voterId: string;
   voterName: string;
   heroTitle: string;
-  rankedActivities: Array<{ rank: number; id: string; title: string; windowLabel: string }>;
+  vibeChoiceId: string;
+  vibeChoiceLabel: string;
+  rankedFridayAdult: RankedOptionEntry[];
+  rankedWeekendOutings: RankedOptionEntry[];
   vetoedPetPeeves: string[];
   customVetoNote: string;
   paceScore: number;
   paceLabel: string;
   morningCoffeeAndTreats: string;
   christmasFeastOrGameWish: string;
+  travelFlightOrFerryInfo: string;
   symphonyCandlelightInterest: boolean;
 }
 
@@ -63,7 +75,7 @@ export async function postBallotToSheetWebhook(
   if (!webhookUrl) {
     return {
       delivered: false,
-      note: 'Sealed on your device with North Pole wax! Tap "Send Scroll to Family Chat" or "Copy Christmas Scroll" below so Santa’s Victoria elves get it right away.',
+      note: 'Saved right on your phone! Tap "Send Summary to Family Chat" or "Copy Summary" below so everyone sees your Victoria picks right away.',
     };
   }
 
@@ -78,42 +90,52 @@ export async function postBallotToSheetWebhook(
     });
     return {
       delivered: true,
-      note: 'Delivered straight to Santa’s Victoria Christmas Workshop Sheet — plus you can share your festive scroll to the family chat below!',
+      note: 'Logged straight to our Victoria Tracker Sheet — plus you can drop your 1-tap summary into the Family Chat below!',
     };
   } catch {
     return {
       delivered: false,
-      note: 'Sealed locally! Tap "Send Scroll to Family Chat" below so zero Christmas wishes are missed.',
+      note: 'Saved on your device! Tap "Send Summary to Family Chat" below so zero Victoria wishes are missed.',
     };
   }
 }
 
 export function formatEmojiBallotReceipt(payload: VictoriaBallotPayload): string {
-  const topFive = payload.rankedActivities
-    .slice(0, 5)
-    .map((item) => `  🌟 #${item.rank} ${item.title}`)
+  const friLines = payload.rankedFridayAdult
+    .slice(0, 2)
+    .map((item) => `  #${item.rank} ${item.title}`)
     .join('\n');
-  const skipTwo = payload.rankedActivities
-    .slice(-2)
-    .map((item) => item.title)
-    .join(' · ');
+  const weekendTopThree = payload.rankedWeekendOutings
+    .slice(0, 3)
+    .map((item) => `  #${item.rank} ${item.title}`)
+    .join('\n');
+  const weekendSkip = payload.rankedWeekendOutings[payload.rankedWeekendOutings.length - 1];
   const naughtyItems =
     payload.vetoedPetPeeves.length > 0
       ? payload.vetoedPetPeeves.join('; ')
-      : 'Pure Christmas cheer — zero coal needed!';
+      : 'Easygoing — zero coal needed!';
   const extraNaughty = payload.customVetoNote ? ` (+ ${payload.customVetoNote})` : '';
+  const travelLine = payload.travelFlightOrFerryInfo
+    ? `✈️⛴️ Thu Dec 10 / Mon Dec 14 Travel: ${payload.travelFlightOrFerryInfo}`
+    : '✈️⛴️ Thu Dec 10 / Mon Dec 14 Travel: Still booking / TBD';
   const symphonyLine = payload.symphonyCandlelightInterest
-    ? '\n🕯️🎻 Candlelight Carols Bonus: Curious about Messiah by Candlelight!'
+    ? '\n🕯️🎻 Bonus: Curious about Victoria Symphony "Messiah by Candlelight"!'
     : '';
 
   return [
-    `🎄📜✨ VICTORIA CHRISTMAS WISH SCROLL — ${payload.voterName.toUpperCase()} (${payload.heroTitle})`,
-    `🕯️ Sleigh-Bell Pace: ${payload.paceLabel}`,
-    `🌟🎁 MY NICE LIST TOP 5 (Dec 10–14):`,
-    topFive,
-    `❄️ Save for Next Christmas: ${skipTwo}`,
-    `🪨🔥 ON SANTA'S NAUGHTY LIST (+Coal for Woody Claus!): ${naughtyItems}${extraNaughty}`,
-    `☕🍪 Christmas Morning Mug & Pantry Treats: ${payload.morningCoffeeAndTreats || 'Surprise me with holiday treats!'}`,
-    `🥧🎬🎲 Christmas Feast / Movie / Game Wish: ${payload.christmasFeastOrGameWish || 'Up for anything cozy by the tree!'}`,
-  ].join('\n') + symphonyLine;
+    `🌲🌊 VICTORIA DEC 10–14 DISPATCH — ${payload.voterName.toUpperCase()} (${payload.heroTitle})`,
+    `🎯 Holiday Vibe Vote: ${payload.vibeChoiceLabel}`,
+    `🥂 Fri Dec 11 Adult Daycare Window (Top 2):`,
+    friLines,
+    `✨ Sat/Sun Outings (Top 3 around El Niño's Nap):`,
+    weekendTopThree,
+    weekendSkip ? `❄️ First to Skip if Tired: ${weekendSkip.title}` : '',
+    `🪨 Banished Buzzkills (+Coal for Woody Claus): ${naughtyItems}${extraNaughty}`,
+    `🕯️ Ideal Trip Pace: ${payload.paceLabel}`,
+    `☕🍪 Morning Mug & Pantry: ${payload.morningCoffeeAndTreats || 'Surprise me with good coffee & treats!'}`,
+    `🥧🎬🎲 Dinner / Movie / Game Wish: ${payload.christmasFeastOrGameWish || 'Up for anything cozy!'}`,
+    travelLine,
+  ]
+    .filter(Boolean)
+    .join('\n') + symphonyLine;
 }
