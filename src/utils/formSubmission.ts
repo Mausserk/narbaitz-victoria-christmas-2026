@@ -6,7 +6,7 @@ export interface RankedOptionEntry {
 }
 
 export interface VictoriaBallotPayload {
-  schemaVersion: 'v3';
+  schemaVersion: 'v4';
   submittedAtIso: string;
   voterId: string;
   voterName: string;
@@ -75,7 +75,7 @@ export async function postBallotToSheetWebhook(
   if (!webhookUrl) {
     return {
       delivered: false,
-      note: 'Saved right on your phone! Tap "Send Summary to Family Chat" or "Copy Summary" below so everyone sees your Victoria picks right away.',
+      note: 'Carved into cedar on your phone! Tap "Send Tree-Mail Summary to Family Chat" or "Copy Summary" below so Woody Claws, Markus & Tricia see your picks right away.',
     };
   }
 
@@ -90,12 +90,12 @@ export async function postBallotToSheetWebhook(
     });
     return {
       delivered: true,
-      note: 'Logged straight to our Victoria Tracker Sheet — plus you can drop your 1-tap summary into the Family Chat below!',
+      note: 'Zapped across the Wood-Wide Web straight to our Victoria Tracker Sheet — plus you can drop your 1-tap summary into the Family Chat below!',
     };
   } catch {
     return {
       delivered: false,
-      note: 'Saved on your device! Tap "Send Summary to Family Chat" below so zero Victoria wishes are missed.',
+      note: 'Saved on your device! Tap "Send Tree-Mail Summary to Family Chat" below so zero Victoria wishes are missed.',
     };
   }
 }
@@ -110,11 +110,11 @@ export function formatEmojiBallotReceipt(payload: VictoriaBallotPayload): string
     .map((item) => `  #${item.rank} ${item.title}`)
     .join('\n');
   const weekendSkip = payload.rankedWeekendOutings[payload.rankedWeekendOutings.length - 1];
-  const naughtyItems =
+  const mulchedItems =
     payload.vetoedPetPeeves.length > 0
       ? payload.vetoedPetPeeves.join('; ')
-      : 'Easygoing — zero coal needed!';
-  const extraNaughty = payload.customVetoNote ? ` (+ ${payload.customVetoNote})` : '';
+      : 'Easygoing — zero buzzkills to mulch!';
+  const extraMulch = payload.customVetoNote ? ` (+ ${payload.customVetoNote})` : '';
   const travelLine = payload.travelFlightOrFerryInfo
     ? `✈️⛴️ Thu Dec 10 / Mon Dec 14 Travel: ${payload.travelFlightOrFerryInfo}`
     : '✈️⛴️ Thu Dec 10 / Mon Dec 14 Travel: Still booking / TBD';
@@ -123,14 +123,14 @@ export function formatEmojiBallotReceipt(payload: VictoriaBallotPayload): string
     : '';
 
   return [
-    `🌲🌊 VICTORIA DEC 10–14 DISPATCH — ${payload.voterName.toUpperCase()} (${payload.heroTitle})`,
+    `🪵🌿 WOODY CLAWS TREE-MAIL DISPATCH — ${payload.voterName.toUpperCase()} (${payload.heroTitle})`,
     `🎯 Holiday Vibe Vote: ${payload.vibeChoiceLabel}`,
     `🥂 Fri Dec 11 Adult Daycare Window (Top 2):`,
     friLines,
-    `✨ Sat/Sun Outings (Top 3 around El Niño's Nap):`,
+    `✨ Sat/Sun Outings (Top 3 around Barclay's Nap):`,
     weekendTopThree,
     weekendSkip ? `❄️ First to Skip if Tired: ${weekendSkip.title}` : '',
-    `🪨 Banished Buzzkills (+Coal for Woody Claus): ${naughtyItems}${extraNaughty}`,
+    `🪵 Mulched into Cedar Woodchips: ${mulchedItems}${extraMulch}`,
     `🕯️ Ideal Trip Pace: ${payload.paceLabel}`,
     `☕🍪 Morning Mug & Pantry: ${payload.morningCoffeeAndTreats || 'Surprise me with good coffee & treats!'}`,
     `🥧🎬🎲 Dinner / Movie / Game Wish: ${payload.christmasFeastOrGameWish || 'Up for anything cozy!'}`,

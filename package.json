@@ -1,8 +1,8 @@
 {
   "name": "narbaitz-victoria-christmas-2026",
   "private": true,
-  "version": "3.0.0",
-  "description": "Mobile-first Narbaitz Family Victoria December Dispatch (Dec 10-14, 2026): Option A Ottawa vs. Victoria holiday vibe check, Hurricane Tricia & Super El Nino comic roster, and split outing ranker",
+  "version": "4.0.0",
+  "description": "Woody Claws' Carved Wooden Concierge Survey (Dec 10-14, 2026): companion to Tales From the Wood-Wide Web #1 with civilian family portraits, Victoria vs. Ottawa vibe vote, split outing ranker, and cedar woodchipper buzzkill banisher",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,8 @@
     "disallowedBundleStrings": [
       "5114 Wilder",
       "Door Code:",
-      "AIzaSy"
+      "AIzaSy",
+      "Woody Claus"
     ]
   },
   "dependencies": {},

@@ -3,6 +3,7 @@ export interface CastMember {
   name: string;
   heroTitle: string;
   rosterBadge: string;
+  deliveryBadge: string;
   accentHex: string;
   avatarSrc: string;
   greeting: string;
@@ -34,67 +35,72 @@ export interface NaughtyListOption {
 }
 
 export const BARCLAY_MASCOT = {
-  name: 'Super El Niño Barclay',
-  rosterBadge: '#8 · Tropical Toddler Heatwave & Chaos Engine (~16m)',
+  name: 'Barclay ("Super El Niño")',
+  rosterBadge: 'Beanbag Connoisseur & Toddler Heatwave (~16m)',
   avatarSrc: './assets/avatar-barclay.jpg',
   blurb:
-    'Hurricane Tricia’s meteorological mini-twin! At Cridge daycare Fri Dec 11 (8am–5pm); naps 12–2pm & tucks in ~7pm Sat/Sun while GOTY Cathy tries to keep up!',
+    'Still happily licking orange cornhole beanbags! At Cridge daycare Fri Dec 11 (8am–5pm); naps 12–2pm & tucks in ~7pm Sat/Sun while GOTY Cathy tries to keep up!',
 };
 
 export const CAST_MEMBERS: CastMember[] = [
   {
     id: 'pedro',
     name: 'Pedro',
-    heroTitle: 'The Grand Otter',
-    rosterBadge: '#10 · Otter-Hood Airbender, Woodworker & Soccer Ace',
+    heroTitle: 'Lake Angler · #10 Messi Fan & Woodworker',
+    rosterBadge: 'Ottawa Lake Fisherman & Reformed Talking-Tree Skeptic',
+    deliveryBadge: '🪷 Delivered via Lake Lily Pad',
     accentHex: '#1E5AA8',
     avatarSrc: './assets/avatar-pedro.jpg',
     greeting:
-      'Welcome West, Grand Otter! Furry otter-hood & Airbender robes ready for morning crosswords, Island woodworkers, Messi & Argentina SOCCER highlights, and keeping GOTY Cathy safe from Woody Claus!',
+      'Special Lily-Pad Tree-Mail for Pedro! Okay, Markus was right—the trees really DO talk to each other! Woody Claws has morning crosswords, Island woodworkers, and #10 Messi & Argentina highlights queued up for your West Coast arrival.',
     coffeePlaceholder: 'e.g., Dark roast coffee, yerba mate, biscotti, crunchy afternoon snacks...',
   },
   {
     id: 'cathy',
     name: 'Cathy',
-    heroTitle: 'GOTY · Grandma of the Year',
-    rosterBadge: '#11 · Athena-Librarian & Chief El Niño Wrangler',
+    heroTitle: 'GOTY · Sizzler Daredevil & Rose Gardener',
+    rosterBadge: 'Grandma of the Year & Woody Claws’ #1 Muse',
+    deliveryBadge: '🌹 Delivered via Ottawa Prize Rose',
     accentHex: '#C9425A',
     avatarSrc: './assets/avatar-cathy.jpg',
     greeting:
-      'Official Victoria Decree for GOTY: Your kitchen apron and dish sponge are 100% retired Dec 10–14 while Markus cooks every meal—because you are officially drafted onto full-time Super El Niño Barclay wrangling & storybook duty (if you can keep up!!)—plus dodging lovestruck Woody Claus!',
+      'Ever since your fearless June Sizzler Slide scream lit an ember in Woody Claws’ driftwood heart, the whole forest has been awaiting GOTY’s return! Your kitchen apron & dish sponge are 100% retired Dec 10–14 while Markus cooks—you’re strictly on Barclay toddler-wrangling, storybooks & ice-cream duty!',
     coffeePlaceholder: 'e.g., Morning tea or oat latte, shortbread, fresh bakery pastry...',
   },
   {
     id: 'tommy',
     name: 'Tommy',
-    heroTitle: 'The Game Master',
-    rosterBadge: '#12 · U14 Gridiron Coach & Multi-Screen NFL Wizard',
+    heroTitle: 'Coach Tom · Sideline & Cornhole Taskmaster',
+    rosterBadge: 'U14 Football Coach & Multi-Screen NFL Strategist',
+    deliveryBadge: '🌼 Delivered via Sideline Dandelion',
     accentHex: '#1B5E3A',
     avatarSrc: './assets/avatar-tommy.jpg',
     greeting:
-      'Game Master HQ is live! Multi-screen December NFL streams, tabletop games, classic cinema, 2x podcasts, and surviving Hurricane Tricia + Super El Niño in the same living room!',
+      'Sideline Dandelion Audible from B.C.! Multi-screen December NFL streams, tabletop games, cornhole rematches against beanbag-chewing Barclay, and surviving Hurricane Tricia + Super El Niño in the same living room!',
     coffeePlaceholder: 'e.g., Cold brew / espresso, NFL game-day snacks, dark chocolate...',
   },
   {
     id: 'tricia',
     name: 'Tricia',
-    heroTitle: 'Hurricane Tricia',
-    rosterBadge: '#5 · Category-5 Bundle of Family Joy & Happy Spills',
+    heroTitle: 'Hurricane Tricia · Category-5 Family Joy',
+    rosterBadge: 'Victoria Host & Bundle of Happy Spills',
+    deliveryBadge: '🌲 Relayed via Backyard Cedar',
     accentHex: '#D9483B',
     avatarSrc: './assets/avatar-tricia.jpg',
     greeting:
-      'Category-5 Family Hype Advisory! Hurricane Tricia has made landfall—pure fiery excitement to have Pedro, Cathy & Tommy under one roof (hide the coasters and brace for joyful spills!).',
+      'The backyard cedars overheard your Category-5 excitement and tipped off Woody Claws! Ready to have Pedro, Cathy & Tommy under one roof (hide the coasters and brace for joyful spills!).',
     coffeePlaceholder: 'e.g., Oat latte, mandarins, dark chocolate oranges, sparkling water...',
   },
   {
     id: 'markus',
     name: 'Markus',
-    heroTitle: 'Holiday Feast Hero',
-    rosterBadge: '#1 · Pampering Host Chef & Spill Responder',
+    heroTitle: 'Victoria Host Chef & Tree-Whisperer',
+    rosterBadge: 'Pampering Kitchen Host & Mycelial Vindication',
+    deliveryBadge: '🌲 Relayed via Fungal Root-Phone',
     accentHex: '#2B6E84',
     avatarSrc: './assets/avatar-markus.jpg',
     greeting:
-      'Skillets hot & espresso pulling! Keeping Cathy 100% out of the dish pit, mopping up Hurricane Tricia’s happy spills, and cooking whatever the crew craves most.',
+      'Officially vindicated on the talking-tree network! Skillets hot, espresso pulling, keeping Cathy 100% out of the dish pit, and teaming up with Woody Claws to get the West Coast in tip-top shape.',
     coffeePlaceholder: 'e.g., Double espresso, warm cinnamon rolls, crisp apples...',
   },
 ];
@@ -116,7 +122,7 @@ export const VIBE_OPTIONS: VibeOption[] = [
     title: 'Sweet-Spot Hybrid (Save Adult Stockings for Ottawa + Festive Dinner & Toddler Magic)',
     shortLabel: 'Option 2: Sweet-Spot Hybrid (Ottawa Adult Stockings + Festive Dinner & Barclay Treat)',
     description:
-      'Keep adult stockings & Christmas Morning sacred for Dec 25 in Ottawa (zero adult gifts to pack!), while enjoying one festive candlelit Victoria dinner + watching Super El Niño Barclay open a tiny board book or toddler treat.',
+      'Keep adult stockings & Christmas Morning sacred for Dec 25 in Ottawa (zero adult gifts to pack!), while enjoying one festive candlelit Victoria dinner + watching Barclay open a tiny board book or toddler treat.',
   },
   {
     id: 'early_family_christmas',
@@ -171,7 +177,7 @@ export const WEEKEND_OUTING_OPTIONS: ActivityOption[] = [
     windowLabel: 'Sat or Sun · 3:30–5:45 PM Dusk Twinkle',
     windowTone: 'twinkle-afternoon',
     summary:
-      '300,000+ twinkling lights at dusk, Twelve Days of Christmas displays, steaming hot cocoa & indoor heated carousel rides with Super El Niño Barclay.',
+      '300,000+ twinkling lights at dusk, Twelve Days of Christmas displays, steaming hot cocoa & indoor heated carousel rides with Barclay.',
   },
   {
     id: 'moss_street_ocean_walk',
@@ -235,8 +241,8 @@ export const NAUGHTY_LIST_OPTIONS: NaughtyListOption[] = [
   {
     id: 'stairs_cold_rain',
     icon: '🌧️',
-    grinchTitle: 'Cold Rain & Steep Stairs',
-    label: 'Too many steep stairs or shivering outside in sideways December rain',
+    grinchTitle: 'Cold November/December Rain & Steep Stairs',
+    label: 'Too many steep stairs or shivering outside in sideways Island rain',
   },
   {
     id: 'kitchen_dishes_stress',

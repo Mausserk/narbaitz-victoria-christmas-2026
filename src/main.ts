@@ -17,7 +17,8 @@ import {
   type VictoriaBallotPayload,
 } from './utils/formSubmission';
 
-const STORAGE_KEY = 'xmas_victoria_2026_dispatch_v3';
+const STORAGE_KEY = 'xmas_victoria_2026_dispatch_v4';
+const LEGACY_STORAGE_KEY = 'xmas_victoria_2026_dispatch_v3';
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
 interface AppState {
@@ -49,7 +50,9 @@ function loadInitialState(): AppState {
   const defaultFriday = FRIDAY_ADULT_OPTIONS.map((a) => a.id);
   const defaultWeekend = WEEKEND_OUTING_OPTIONS.map((a) => a.id);
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw =
+      window.localStorage.getItem(STORAGE_KEY) ||
+      window.localStorage.getItem(LEGACY_STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<AppState>;
       const validVibe = VIBE_OPTIONS.some((v) => v.id === parsed.vibeChoiceId)
@@ -118,43 +121,41 @@ function el<K extends keyof HTMLElementTagNameMap>(
   return node;
 }
 
-function createTwinkleGarlandSvg(): SVGSVGElement {
+function createMycelialGarlandSvg(): SVGSVGElement {
   const svg = document.createElementNS(SVG_NS, 'svg');
   svg.setAttribute('class', 'twinkle-garland');
   svg.setAttribute('viewBox', '0 0 800 34');
   svg.setAttribute('preserveAspectRatio', 'none');
   svg.setAttribute('aria-hidden', 'true');
 
-  const wire = document.createElementNS(SVG_NS, 'path');
-  wire.setAttribute(
+  const rootVine = document.createElementNS(SVG_NS, 'path');
+  rootVine.setAttribute(
     'd',
-    'M0,8 Q50,22 100,9 T200,10 T300,10 T400,10 T500,10 T600,10 T700,10 T800,8'
+    'M0,14 Q50,24 100,12 T200,14 T300,12 T400,14 T500,12 T600,14 T700,12 T800,14'
   );
-  wire.setAttribute('fill', 'none');
-  wire.setAttribute('stroke', '#2d5c48');
-  wire.setAttribute('stroke-width', '2.2');
-  svg.appendChild(wire);
+  rootVine.setAttribute('fill', 'none');
+  rootVine.setAttribute('stroke', '#8b5e34');
+  rootVine.setAttribute('stroke-width', '3');
+  svg.appendChild(rootVine);
 
-  const palette = ['#ff5a5f', '#ffd166', '#4ade80', '#7dd3fc'];
+  const palette = ['#f5a623', '#6ee7b7', '#fbbf24', '#f87171'];
   const xs = [45, 115, 185, 255, 325, 395, 465, 535, 605, 675, 745];
   xs.forEach((x, idx) => {
-    const cap = document.createElementNS(SVG_NS, 'rect');
-    cap.setAttribute('x', String(x - 3));
-    cap.setAttribute('y', '10');
-    cap.setAttribute('width', '6');
-    cap.setAttribute('height', '4');
-    cap.setAttribute('rx', '1');
-    cap.setAttribute('fill', '#cbd5e1');
-    svg.appendChild(cap);
+    const leaf = document.createElementNS(SVG_NS, 'ellipse');
+    leaf.setAttribute('cx', String(x - 6));
+    leaf.setAttribute('cy', '12');
+    leaf.setAttribute('rx', '5');
+    leaf.setAttribute('ry', '2.6');
+    leaf.setAttribute('fill', '#4ade80');
+    svg.appendChild(leaf);
 
-    const bulb = document.createElementNS(SVG_NS, 'ellipse');
-    bulb.setAttribute('cx', String(x));
-    bulb.setAttribute('cy', '20');
-    bulb.setAttribute('rx', '5.5');
-    bulb.setAttribute('ry', '7.5');
-    bulb.setAttribute('fill', palette[idx % palette.length]);
-    bulb.setAttribute('class', idx % 2 === 0 ? 'twinkle-bulb-a' : 'twinkle-bulb-b');
-    svg.appendChild(bulb);
+    const ember = document.createElementNS(SVG_NS, 'circle');
+    ember.setAttribute('cx', String(x));
+    ember.setAttribute('cy', '19');
+    ember.setAttribute('r', '5.5');
+    ember.setAttribute('fill', palette[idx % palette.length]);
+    ember.setAttribute('class', idx % 2 === 0 ? 'twinkle-bulb-a' : 'twinkle-bulb-b');
+    svg.appendChild(ember);
   });
 
   return svg;
@@ -172,87 +173,64 @@ function mountApp(): void {
 
   const shell = el('main', 'page-shell');
 
-  // 1. Hero Header
+  // 1. Woody Claws Carved Western Red Cedar Header (Compact -> Opens Straight to Step 1!)
   const hero = el('header', 'hero-card');
-  hero.appendChild(el('div', 'candy-cane-trim'));
-  hero.appendChild(createTwinkleGarlandSvg());
+  hero.appendChild(el('div', 'cedar-bark-trim'));
+  hero.appendChild(createMycelialGarlandSvg());
 
   const heroImg = el('img', 'hero-banner-img');
-  heroImg.src = './assets/hero-harbour.jpg';
+  heroImg.src = './assets/woody-claws-hero.jpg';
   heroImg.alt =
-    'Comic-book illustration of Grand Otter Pedro, GOTY Cathy, Game Master Tommy, Hurricane Tricia, Chef Markus, and Super El Niño Barclay arriving at Victoria Inner Harbour while Woody Claus peeks from the snowy pines';
+    'Bronze-Age comic illustration of Malahat driftwood giant Woody Claws with a glowing golden ember in his wooden chest carving cedar survey scrolls beside a lily pad, crimson rose, and golden dandelion';
 
   const heroCopy = el('div', 'hero-copy');
   heroCopy.appendChild(
-    el('span', 'postmark-stamp', '🌲🌊 West Coast Family Dispatch · Thu Dec 10 – Mon Dec 14, 2026 · Victoria, BC')
+    el(
+      'span',
+      'postmark-stamp',
+      '🪵🌿 Official Tree-Mail from Woody Claws · Thu Dec 10 – Mon Dec 14, 2026 · Victoria, BC'
+    )
   );
-  heroCopy.appendChild(
-    el('h1', 'hero-title', 'Narbaitz Family Victoria December Dispatch!')
-  );
+  heroCopy.appendChild(el('h1', 'hero-title', 'WE WOOD LOVE YOUR INPUT!'));
   heroCopy.appendChild(
     el(
       'p',
       'hero-subtitle',
-      'Three full days together on the Island (Fri Dec 11, Sat Dec 12 & Sun Dec 13)! Take 60 seconds to pick our Victoria vs. Ottawa holiday vibe, rank your favorite Friday adult-only & weekend outings, and help protect GOTY Cathy from lovestruck Woody Claus!'
+      'Your input is needed — don’t LEAF Woody Claws hanging! Now that the talking trees revealed Cathy (GOTY!), Pedro & Tom are coming West Dec 10–14, take 60 seconds to LOG your wishes & SPRUCE up the Coast:'
     )
   );
+
+  const heroActions = el('div', 'hero-comic-bar');
+  const comicLink = el(
+    'a',
+    'comic-pdf-pill',
+    '📖 Re-open Issue #1 Comic: "The Ballad of Woody Claws" (PDF)'
+  );
+  comicLink.href = './assets/woody-claws-issue-1.pdf';
+  comicLink.target = '_blank';
+  comicLink.rel = 'noopener noreferrer';
+
+  const deliveryLegend = el(
+    'span',
+    'botanical-legend',
+    '🪷 Lily Pad · 🌹 Prize Rose · 🌼 Sideline Dandelion'
+  );
+  heroActions.append(comicLink, deliveryLegend);
+  heroCopy.appendChild(heroActions);
+
   hero.append(heroImg, heroCopy);
   shell.appendChild(hero);
 
-  // 2. Woody Claus & Silver Sizzler Lore Card
-  const villainSec = el('section', 'section-card');
-  villainSec.appendChild(
-    el('span', 'section-step', '🪵💘 West Coast Lore Bulletin · Silver Sizzler Alert')
-  );
-  villainSec.appendChild(
-    el('h2', 'section-title', 'Watch Your Six: Woody Claus Is Still Pining for GOTY Cathy!')
-  );
-  villainSec.appendChild(
-    el(
-      'p',
-      'section-lead',
-      'Local Vancouver Island Sasquatch advisory: a 9-foot carved cedar Sasquatch in a Santa hat has swiped a burlap sack of West Coast holiday twinkle lights to get Cathy’s attention!'
-    )
-  );
-  const villainGrid = el('div', 'stocking-grid');
-  const villainImg = el('img', 'stocking-img');
-  villainImg.src = './assets/woody-claus-heist.jpg';
-  villainImg.alt =
-    'Woody Claus winking with floating red hearts beside the Malahat Silver Sizzler Slide as Grand Otter Pedro, GOTY Cathy, Game Master Tommy, Hurricane Tricia, and Chef Markus stand ready';
-  const villainList = el('ul', 'rule-list');
-  const villainBeats: Array<[string, string]> = [
-    [
-      '💘 1. The Silver Sizzler Crush',
-      'Woody Claus fell head-over-wooden-heels in love with GOTY Cathy the day he spotted her sizzling majestically down the Malahat Silver Sizzler Slide!',
-    ],
-    [
-      '🌪️☀️ 2. Double Weather Event Backup',
-      'What Woody didn’t count on: Hurricane Tricia + Super El Niño Barclay bringing Category-5 family hype while Grand Otter Pedro, Game Master Tommy & Chef Markus hold the line!',
-    ],
-    [
-      '🧽🚫 3. GOTY Kitchen Retirement Decree',
-      'Cathy’s kitchen apron & dish sponge are 100% retired Dec 10–14 while Markus cooks—because Cathy is officially drafted onto full-time Super El Niño Barclay wrangling duty (if she can keep up!!).',
-    ],
-  ];
-  for (const [vHeading, vDetail] of villainBeats) {
-    const li = el('li', 'rule-item');
-    li.append(el('strong', undefined, vHeading), el('span', undefined, vDetail));
-    villainList.appendChild(li);
-  }
-  villainGrid.append(villainImg, villainList);
-  villainSec.appendChild(villainGrid);
-  shell.appendChild(villainSec);
-
-  // 3. Step 1 of 6: Hero Picker
+  // 2. Step 1 of 6: Civilian Family Check-In (Directly below Header!)
   const castSec = el('section', 'section-card');
   castSec.id = 'step-hero-picker';
-  castSec.appendChild(el('span', 'section-step', '✨ Step 1 of 6 · Who’s Checking In?'));
-  castSec.appendChild(el('h2', 'section-title', 'Tap Your Narbaitz Hero Portrait'));
+  castSec.appendChild(el('span', 'section-step', '🪵 Step 1 of 6 · Who’s Opening Their Wooden Scroll?'));
+  castSec.appendChild(el('h2', 'section-title', 'Tap Your Portrait to Begin'));
   castSec.appendChild(
     el(
       'p',
       'section-lead',
-      'Pick your character card below so we know whose Victoria votes & pantry favorites we’re locking in:'
+      'Tap your portrait below so Woody Claws, Markus & Tricia know whose Victoria votes & pantry favorites we’re carving into cedar:'
     )
   );
   const castGrid = el('div', 'cast-grid');
@@ -274,7 +252,8 @@ function mountApp(): void {
       img.alt = `${member.name} — ${member.heroTitle}`;
       const nameEl = el('span', 'cast-name', member.name);
       const heroEl = el('span', 'cast-hero', member.heroTitle);
-      btn.append(img, nameEl, heroEl);
+      const badgeEl = el('span', 'cast-delivery-tag', member.deliveryBadge);
+      btn.append(img, nameEl, heroEl, badgeEl);
       btn.addEventListener('click', () => {
         state.voterId = member.id;
         coffeeInput.placeholder = member.coffeePlaceholder;
@@ -286,7 +265,7 @@ function mountApp(): void {
     const active = CAST_MEMBERS.find((c) => c.id === state.voterId);
     if (active) {
       greetingBanner.hidden = false;
-      greetingBanner.textContent = `🌲 ${active.name} (${active.rosterBadge}): ${active.greeting}`;
+      greetingBanner.textContent = `${active.deliveryBadge} · ${active.name}: ${active.greeting}`;
       coffeeInput.placeholder = active.coffeePlaceholder;
     } else {
       greetingBanner.hidden = true;
@@ -300,7 +279,11 @@ function mountApp(): void {
   mascotImg.alt = `${BARCLAY_MASCOT.name} portrait`;
   const mascotCopy = el('div', 'mascot-copy');
   mascotCopy.append(
-    el('strong', undefined, `☀️🌪️ Plus Non-Voting Mascot: ${BARCLAY_MASCOT.name} (${BARCLAY_MASCOT.rosterBadge})`),
+    el(
+      'strong',
+      undefined,
+      `🧡🍼 Plus Non-Voting Mascot: ${BARCLAY_MASCOT.name} (${BARCLAY_MASCOT.rosterBadge})`
+    ),
     el('span', undefined, BARCLAY_MASCOT.blurb)
   );
   mascotBox.append(mascotImg, mascotCopy);
@@ -308,7 +291,7 @@ function mountApp(): void {
   castSec.append(castGrid, greetingBanner, mascotBox);
   shell.appendChild(castSec);
 
-  // 4. Step 2 of 6: Option A — Victoria Getaway vs. Recreating Christmas
+  // 3. Step 2 of 6: Option A — Victoria Getaway vs. Recreating Christmas
   const vibeSec = el('section', 'section-card');
   vibeSec.id = 'step-vibe-check';
   vibeSec.appendChild(
@@ -321,21 +304,21 @@ function mountApp(): void {
     el(
       'p',
       'section-lead',
-      'Since Markus, Tricia & Super El Niño head to the Kootenays over Dec 25 while Pedro, Cathy & Tommy are home in Ottawa for actual Christmas Eve & Christmas Day, we don’t want to accidentally step on your Ottawa Christmas morning! Which vibe feels best for Dec 10–14 in Victoria?'
+      'Since Markus, Tricia & Barclay head to the Kootenays over Dec 25 while Pedro, Cathy & Tommy are home in Ottawa for actual Christmas Eve & Christmas Day, we don’t want to accidentally step on your Ottawa Christmas morning! Which vibe feels best for Dec 10–14 in Victoria?'
     )
   );
 
   const vibeBannerFrame = el('div', 'vibe-banner-frame');
   const vibeBannerImg = el('img', 'vibe-banner-img');
-  vibeBannerImg.src = './assets/pampered-weekend.jpg';
+  vibeBannerImg.src = './assets/victoria-civilian-vibe.jpg';
   vibeBannerImg.alt =
-    'Comic living room scene in Victoria: Chef Markus serving a holiday platter, GOTY Cathy chasing zooming Super El Niño Barclay with a storybook, Hurricane Tricia mid-happy spill, Grand Otter Pedro with crosswords and soccer ball, and Game Master Tommy with football streams and tabletop dice';
+    'Warm comic living room scene in Victoria: Pedro relaxing by the fire with crosswords and a soccer ball, Cathy reading a storybook with toddler Barclay, Tommy rolling tabletop dice by the football game, and Markus and Tricia serving dinner from the kitchen';
   vibeBannerFrame.append(
     vibeBannerImg,
     el(
       'div',
       'vibe-banner-caption',
-      '🏡 Inside Victoria HQ: Chef Markus on feasts, GOTY Cathy chasing Super El Niño, Hurricane Tricia bringing the hype, and zero pressure until we pick our vibe together!'
+      '🏡 Inside Victoria HQ: Markus on feasts (Cathy’s apron stays 100% retired!), Cathy on Barclay & storybook duty, Tricia bringing the hype, and zero pressure until we pick our vibe together!'
     )
   );
   vibeSec.appendChild(vibeBannerFrame);
@@ -361,7 +344,7 @@ function mountApp(): void {
         el(
           'span',
           'vibe-select-pill',
-          selected ? '✅ Selected Victoria Vibe' : '◯ Tap to Vote for This Vibe'
+          selected ? '✅ Carved into My Cedar Scroll' : '◯ Tap to Vote for This Vibe'
         )
       );
 
@@ -517,13 +500,13 @@ function mountApp(): void {
     return sec;
   }
 
-  // 5. Step 3 of 6: Friday Dec 11 Golden Adult-Only Window (8am–5pm)
+  // 4. Step 3 of 6: Friday Dec 11 Golden Adult-Only Window (8am–5pm)
   const fridaySec = buildRankSection({
     listKey: 'friday',
     sectionId: 'step-friday-adult',
     stepBadge: '🥂 Step 3 of 6 · Fri Dec 11 Adult-Only Window (8am–5pm)',
     title: 'Rank Your Friday Child-Free Adult Favorites (#1 → #4)',
-    lead: 'Friday is our secret weapon: Super El Niño Barclay is at Cridge daycare from 8:00 AM – 5:00 PM, giving all 5 adults a rare child-free window! Drag or tap ▲ / ▼ to rank these 4 contenders:',
+    lead: 'Friday is our secret weapon: Barclay is at Cridge daycare from 8:00 AM – 5:00 PM, giving all 5 adults a rare child-free window! Drag or tap ▲ / ▼ to rank these 4 contenders:',
     options: FRIDAY_ADULT_OPTIONS,
     highlightTopCount: 2,
     getOrder: () => state.fridayOrderedIds,
@@ -533,13 +516,13 @@ function mountApp(): void {
   });
   shell.appendChild(fridaySec);
 
-  // 6. Step 4 of 6: Sat Dec 12 & Sun Dec 13 Outings
+  // 5. Step 4 of 6: Sat Dec 12 & Sun Dec 13 Outings
   const weekendSec = buildRankSection({
     listKey: 'weekend',
     sectionId: 'step-weekend-outings',
     stepBadge: '✨ Step 4 of 6 · Sat Dec 12 & Sun Dec 13 Outings',
-    title: 'Rank Weekend Outings Around Super El Niño’s Nap (#1 Top Pick → #5 Skip)',
-    lead: 'Markus has cozy home feasts covered in the evenings (Cathy’s apron is BANNED so she stays fresh for Super El Niño duty!). Rank these 5 verified outings around Barclay’s 12–2pm nap & ~7pm bedtime:',
+    title: 'Rank Weekend Outings Around Barclay’s Nap (#1 Top Pick → #5 Skip)',
+    lead: 'Markus has cozy home feasts covered in the evenings (Cathy’s apron is BANNED so she stays fresh for toddler & ice-cream duty!). Rank these 5 verified outings around Barclay’s 12–2pm nap & ~7pm bedtime:',
     options: WEEKEND_OUTING_OPTIONS,
     highlightTopCount: 3,
     getOrder: () => state.weekendOrderedIds,
@@ -549,36 +532,36 @@ function mountApp(): void {
   });
   shell.appendChild(weekendSec);
 
-  // 7. Step 5 of 6: Banish the Holiday Buzzkills (+ Coal for Woody Claus!)
+  // 6. Step 5 of 6: Woody Claws' Cedar Woodchipper (Buzzkill Mulcher!)
   const naughtySec = el('section', 'section-card section-card-naughty');
   naughtySec.id = 'step-buzzkills';
   naughtySec.appendChild(
-    el('span', 'section-step section-step-coal', '🪨📜 Step 5 of 6 · Banish the Buzzkills')
+    el('span', 'section-step section-step-mulch', '🪵🌿 Step 5 of 6 · Woody Claws’ Cedar Woodchipper')
   );
   naughtySec.appendChild(
-    el('h2', 'section-title', 'Toss Any Trip Buzzkills into Woody Claus’s Coal Sack!')
+    el('h2', 'section-title', 'What Trip Buzzkills Should Woody Claws Mulch Into Woodchips?')
   );
   naughtySec.appendChild(
     el(
       'p',
       'section-lead',
-      'Every family trip feels 10x better when we name the energy-drainers early! Tap anything you want banished from Dec 10–14 (we’ll ship the coal straight to Woody Claus’s forest cabin):'
+      'Woody Claws wants the West Coast in tip-top shape for GOTY’s arrival! Tap any energy-drainers below and Woody will shred them into fragrant cedar mulch for Cathy’s rose garden:'
     )
   );
 
   const visualFrame = el('div', 'naughty-visual-frame');
   const naughtyBannerImg = el('img', 'naughty-banner-img');
-  naughtyBannerImg.src = './assets/naughty-list-scroll.jpg';
+  naughtyBannerImg.src = './assets/woody-claws-mulch.jpg';
   naughtyBannerImg.alt =
-    'Comic illustration of Grand Otter Pedro using tongs to drop an early alarm clock and raincloud into a coal sack, GOTY Cathy stamping a wax seal on the scroll, and Chef Markus tossing dirty dishes and crowd ropes into the coal sack';
+    'Bronze-Age comic illustration of driftwood giant Woody Claws happily feeding a ringing alarm clock, soapy dishes, raincloud, and queue ropes into a rustic log woodchipper that shoots out golden cedar rose mulch';
   const visualCaption = el('div', 'naughty-visual-caption');
   visualCaption.append(
     el(
       'span',
       undefined,
-      '🎨 Tap any buzzkill card below to banish it onto the scroll & drop a lump of coal in Woody Claus’s sack!'
+      '🪵 Tap any buzzkill card below to toss it into Woody Claws’ hollow-log woodchipper!'
     ),
-    el('span', 'naughty-example-flow', '⏰ Early Alarms + 🧽 Dish Duty ➔ 🪨 Banished!')
+    el('span', 'naughty-example-flow', '⏰ Early Alarms + 🧽 Dish Duty ➔ 🪵🌹 Rose Mulch!')
   );
   visualFrame.append(naughtyBannerImg, visualCaption);
   naughtySec.appendChild(visualFrame);
@@ -591,7 +574,7 @@ function mountApp(): void {
   const customNaughtyLabel = el(
     'label',
     'field-label',
-    '🪶 Any Other Trip Buzzkill to Banish? (Optional):'
+    '🌿 Any Other Trip Buzzkill for Woody Claws to Mulch? (Optional):'
   );
   customNaughtyLabel.htmlFor = 'custom-naughty-input';
   const customNaughtyInput = el('input', 'text-input');
@@ -619,50 +602,52 @@ function mountApp(): void {
     const bottomRoller = el('div', 'scroll-roller');
 
     const trimmedCustom = state.customVetoNote.trim();
-    const totalCoalCount = state.vetoedIds.length + (trimmedCustom ? 1 : 0);
+    const totalMulchCount = state.vetoedIds.length + (trimmedCustom ? 1 : 0);
 
     const header = el('div', 'scroll-header');
     const headingWrap = el('div', 'scroll-heading-wrap');
-    headingWrap.appendChild(el('div', 'wax-seal-medal', '📜'));
+    headingWrap.appendChild(el('div', 'wax-seal-medal', '🪵'));
     const titleBox = el('div');
-    titleBox.appendChild(el('h3', 'scroll-title', 'Official Victoria Banished-Buzzkills Scroll'));
+    titleBox.appendChild(
+      el('h3', 'scroll-title', 'Woody Claws’ Official Mulched-Buzzkills Scroll')
+    );
     titleBox.appendChild(
       el(
         'p',
         'scroll-subtitle',
-        totalCoalCount === 0
-          ? 'Unfurled & ready if anything bugs you!'
-          : 'Officially outlawed from our Dec 10–14 Victoria days!'
+        totalMulchCount === 0
+          ? 'Woodchipper idling — tap any buzzkill above if something bugs you!'
+          : 'Shredded into fragrant cedar mulch & outlawed from Dec 10–14!'
       )
     );
     headingWrap.appendChild(titleBox);
 
-    const coalCounter = el('div', 'coal-sack-counter');
-    const lumpsRow = el('span', 'coal-lumps-row');
-    const visualDots = Math.min(Math.max(totalCoalCount, 1), 6);
+    const mulchCounter = el('div', 'coal-sack-counter mulch-sack-counter');
+    const chipsRow = el('span', 'coal-lumps-row');
+    const visualDots = Math.min(Math.max(totalMulchCount, 1), 6);
     for (let i = 0; i < visualDots; i++) {
-      lumpsRow.appendChild(el('span', 'coal-lump-dot'));
+      chipsRow.appendChild(el('span', 'woodchip-dot'));
     }
-    const coalLabel = el(
+    const mulchLabel = el(
       'span',
       undefined,
-      totalCoalCount === 1
-        ? '1 Lump of Coal for Woody Claus!'
-        : `${totalCoalCount} Lumps of Coal for Woody Claus!`
+      totalMulchCount === 1
+        ? '1 Bag of Cedar Rose Mulch!'
+        : `${totalMulchCount} Bags of Cedar Rose Mulch!`
     );
-    coalCounter.append(lumpsRow, coalLabel);
-    header.append(headingWrap, coalCounter);
+    mulchCounter.append(chipsRow, mulchLabel);
+    header.append(headingWrap, mulchCounter);
     parchment.appendChild(header);
 
     const entriesList = el('ul', 'scroll-entries');
-    if (totalCoalCount === 0) {
+    if (totalMulchCount === 0) {
       const emptyLi = el('li', 'scroll-empty-example');
       emptyLi.append(
         el('strong', undefined, 'Example: '),
         el(
           'span',
           undefined,
-          '⏰ "Early Alarms" or 🧽 "Dish-Pit Duty" ➔ 🪨 Tap any card above to banish it here!'
+          '⏰ "Early Alarms" or 🧽 "Dish-Pit Duty" ➔ 🪵 Tap any card above to mulch it!'
         )
       );
       entriesList.appendChild(emptyLi);
@@ -673,7 +658,7 @@ function mountApp(): void {
         const li = el('li', 'scroll-entry-item');
         const textWrap = el('span', 'scroll-entry-text');
         textWrap.append(
-          el('span', undefined, `${opt.icon}🪨`),
+          el('span', undefined, `${opt.icon}🪵`),
           el('span', undefined, `${opt.grinchTitle} — ${opt.label}`)
         );
         const pardonBtn = el('button', 'scroll-pardon-btn', '✕ Undo');
@@ -687,7 +672,7 @@ function mountApp(): void {
         const customLi = el('li', 'scroll-entry-item');
         const customTextWrap = el('span', 'scroll-entry-text');
         customTextWrap.append(
-          el('span', undefined, '🪶🪨'),
+          el('span', undefined, '🌿🪵'),
           el('span', undefined, `Write-In Buzzkill: ${trimmedCustom}`)
         );
         const clearCustomBtn = el('button', 'scroll-pardon-btn', '✕ Clear');
@@ -717,7 +702,7 @@ function mountApp(): void {
       card.type = 'button';
       card.setAttribute('aria-pressed', active ? 'true' : 'false');
 
-      const iconMedal = el('span', 'naughty-icon-medal', active ? '🪨' : opt.icon);
+      const iconMedal = el('span', 'naughty-icon-medal', active ? '🪵' : opt.icon);
       iconMedal.setAttribute('aria-hidden', 'true');
 
       const content = el('span', 'naughty-card-content');
@@ -729,7 +714,7 @@ function mountApp(): void {
         el(
           'span',
           'naughty-stamp',
-          active ? '🪨 Banished! (+1 Coal)' : '📜 Tap to Banish'
+          active ? '🪵 Mulched! (+1 Rose Mulch)' : '🌿 Tap to Mulch'
         )
       );
       content.appendChild(stampRow);
@@ -752,7 +737,7 @@ function mountApp(): void {
   naughtySec.append(naughtyGrid, customNaughtyGroup, scrollStage);
   shell.appendChild(naughtySec);
 
-  // 8. Step 6 of 6: Pace, Pantry, Wishes & Travel Info
+  // 7. Step 6 of 6: Pace, Pantry, Wishes & Travel Info
   const kitchenSec = el('section', 'section-card');
   kitchenSec.id = 'step-pantry-travel';
   kitchenSec.appendChild(
@@ -765,7 +750,7 @@ function mountApp(): void {
     el(
       'p',
       'section-lead',
-      'So Markus & Tricia have your favorite coffee, snacks, and dinner cravings stocked before Thursday, Dec 10!'
+      'So Woody Claws, Markus & Tricia have your favorite coffee, snacks, and dinner cravings stocked before Thursday, Dec 10!'
     )
   );
 
@@ -827,7 +812,7 @@ function mountApp(): void {
   wishInput.type = 'text';
   wishInput.maxLength = 180;
   wishInput.placeholder =
-    'e.g., West Coast salmon, braised short ribs, Muppet Christmas Carol, new tabletop game...';
+    'e.g., West Coast salmon, braised short ribs, Muppet Christmas Carol, cornhole rematch...';
   wishInput.value = state.christmasFeastOrGameWish;
   wishInput.addEventListener('input', () => {
     state.christmasFeastOrGameWish = wishInput.value;
@@ -889,7 +874,7 @@ function mountApp(): void {
   kitchenSec.append(paceGroup, coffeeGroup, wishGroup, travelGroup, symphonyRow, hpWrap);
   shell.appendChild(kitchenSec);
 
-  // 9. Submit & 1-Tap Family Chat Summary Section
+  // 8. Submit & 1-Tap Tree-Mail Summary Section
   const submitSec = el('section', 'section-card');
   const validationBox = el('div', 'validation-banner');
   validationBox.hidden = true;
@@ -897,7 +882,7 @@ function mountApp(): void {
   const submitBtn = el(
     'button',
     'submit-btn',
-    '🌲🌊 Lock In My Victoria Picks & Create Family Chat Summary!'
+    '🪵🌿 LOG My Victoria Wishes & Send Back via Tree-Mail!'
   );
   submitBtn.id = 'seal-scroll-btn';
   submitBtn.type = 'button';
@@ -910,7 +895,11 @@ function mountApp(): void {
 
     const box = el('div', 'receipt-card');
     box.appendChild(
-      el('h3', 'receipt-title', '🎉 Victoria Dispatch Ready! Send 1-Tap Summary to Family Chat:')
+      el(
+        'h3',
+        'receipt-title',
+        '🎉 Cedar Scroll Carved! Send 1-Tap Tree-Mail Summary to Family Chat:'
+      )
     );
     box.appendChild(el('p', 'section-lead', lastDeliveryNote));
 
@@ -920,7 +909,7 @@ function mountApp(): void {
     const shareBtn = el(
       'button',
       'action-btn action-btn-primary',
-      '📲 Send Summary to Family Chat (1 Tap)'
+      '📲 Send Tree-Mail Summary to Family Chat (1 Tap)'
     );
     shareBtn.id = 'share-family-chat-btn';
     shareBtn.type = 'button';
@@ -928,7 +917,7 @@ function mountApp(): void {
       if (navigator.share) {
         try {
           await navigator.share({
-            title: 'My Victoria Dec 10–14 Picks',
+            title: 'My Woody Claws Victoria Dec 10–14 Wishes',
             text: lastReceiptText,
           });
           return;
@@ -966,7 +955,7 @@ function mountApp(): void {
     if (!voter) {
       validationBox.hidden = false;
       validationBox.textContent =
-        '✨ Quick Step 1 check: Tap your Narbaitz Hero portrait (Pedro, Cathy, Tommy, Tricia, or Markus) at the top first!';
+        '🪵 Quick Step 1 check: Tap your portrait (Pedro, Cathy, Tommy, Tricia, or Markus) right at the top first!';
       castSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
@@ -986,13 +975,13 @@ function mountApp(): void {
 
     validationBox.hidden = true;
     submitBtn.disabled = true;
-    submitBtn.textContent = '✨ Locking In Your Victoria Dispatch...';
+    submitBtn.textContent = '🪵 Carving Your Cedar Scroll...';
 
     const naughtyLabelMap = new Map(
       NAUGHTY_LIST_OPTIONS.map((p) => [p.id, `${p.grinchTitle} (${p.label})`])
     );
     const payload: VictoriaBallotPayload = {
-      schemaVersion: 'v3',
+      schemaVersion: 'v4',
       submittedAtIso: new Date().toISOString(),
       voterId: voter.id,
       voterName: voter.name,
@@ -1034,7 +1023,7 @@ function mountApp(): void {
     lastDeliveryNote = result.note;
 
     submitBtn.disabled = false;
-    submitBtn.textContent = '🌲✨ Update My Victoria Dispatch Summary';
+    submitBtn.textContent = '🪵✨ Update My Carved Wooden Survey';
     renderReceipt();
     receiptContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });

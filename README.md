@@ -1,10 +1,10 @@
-# Narbaitz Victoria December Dispatch 2026 · Survey v3
+# Woody Claws' Carved Wooden Survey · Narbaitz Victoria 2026 (v4.0)
 
-Mobile-first 6-step family survey for the **Narbaitz Victoria Christmas (`Thu Dec 10 – Mon Dec 14, 2026`)**:
-- **Updated Family Comic Cast**: `The Grand Otter` (Pedro), `GOTY · Grandma of the Year` (Cathy — 100% retired from dishes & drafted onto `Super El Niño Barclay` wrangling duty), `The Game Master` (Tommy), `Hurricane Tricia` (Tricia), `Holiday Feast Hero` (Markus), `Super El Niño Barclay` (~16m), and lovestruck cedar Sasquatch villain `Woody Claus`.
+Mobile-first 6-step Western Red Cedar concierge survey for the **Narbaitz Victoria Trip (`Thu Dec 10 – Mon Dec 14, 2026`)**, paired with the 4-page smartphone-optimized comic ***Tales From the Wood-Wide Web #1: The Ballad of Woody Claws*** (`./assets/woody-claws-issue-1.pdf`):
+- **Civilian Family Cast & Botanical Tree-Mail**: Opens straight to Step 1 above the fold with civilian portraits & Issue #1 delivery badges — `Pedro` (🪷 Lake Lily Pad), `Cathy / GOTY` (🌹 Ottawa Prize Rose — 100% retired from kitchen dishes & on full-time Barclay toddler/ice-cream duty), `Tommy` (🌼 Football Sideline Dandelion), `Hurricane Tricia` & `Markus` (🌲 Victoria Backyard Cedar / Mycelial Network), plus toddler mascot `Barclay ("Super El Niño")`.
 - **Option A Holiday Vibe Check**: Vote between a *Loosely Festive West Coast Trip* (saving Christmas & stockings 100% for Dec 25 in Ottawa), a *Sweet-Spot Hybrid*, or a *Full Early Family Christmas* (`$35–$50` carry-on Secret Stocking Ring assigned privately only if chosen).
 - **Split Outing Rankers**: Separate drag/tap rankings for **Friday Dec 11's `8am–5pm` Cridge Daycare Adult-Only Window** (`4` contenders) and **Sat/Sun Outings** (`5` verified Greater Victoria outings around Barclay's `12–2pm` nap & `~7pm` bedtime).
-- **Buzzkills, Pace, Pantry & Travel**: Tap-to-banish buzzkills (+ coal for Woody Claus), trip pace (`1–4`), morning mug/pantry favorites, dinner/movie/game wishes, and optional `Thu Dec 10 / Mon Dec 14` flight/ferry arrival & departure notes.
+- **Woody Claws' Cedar Woodchipper, Pace, Pantry & Travel**: Tap-to-mulch trip buzzkills into fragrant cedar rose mulch, pick trip pace (`1–4`), share morning mug/pantry favorites & dinner/movie/game wishes, and log optional `Thu Dec 10 / Mon Dec 14` flight/ferry times.
 
 ## Development & Security Verification
 

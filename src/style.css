@@ -1182,3 +1182,95 @@ body {
   background: var(--gold);
   color: #17231e;
 }
+
+/* =========================================================
+   v4.0 Woody Claws Western Red Cedar & Botanical Styling
+   ========================================================= */
+.cedar-bark-trim {
+  height: 12px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #5c3518 0px,
+    #7a4928 18px,
+    #965d35 36px,
+    #6c3f1d 54px
+  );
+  border-bottom: 2px solid var(--border-ink);
+}
+
+.hero-card {
+  background: linear-gradient(180deg, #1b3b2b 0%, #3d2817 100%);
+}
+
+.hero-comic-bar {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1.5px dashed rgba(255, 246, 220, 0.3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.comic-pdf-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(180deg, #ffe39f 0%, #f0b43e 100%);
+  color: #2c1708;
+  font-weight: 850;
+  font-size: 0.92rem;
+  text-decoration: none;
+  padding: 9px 15px;
+  border-radius: 999px;
+  border: 2px solid var(--border-ink);
+  box-shadow: 0 3px 0 var(--border-ink);
+  transition: transform 0.12s ease, background-color 0.14s ease;
+}
+
+.comic-pdf-pill:hover {
+  transform: translateY(-1px);
+  background: #ffecb8;
+}
+
+.botanical-legend {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #fdecc8;
+}
+
+.cast-delivery-tag {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--cedar-wood-dark);
+  background: #faecd2;
+  border: 1px solid rgba(122, 73, 40, 0.42);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.section-step-mulch {
+  color: #fffaf0;
+  background: var(--cedar-wood-dark);
+  border-color: var(--border-ink);
+}
+
+.mulch-sack-counter {
+  background: var(--cedar-wood-dark);
+  color: #fff8e8;
+}
+
+.woodchip-dot {
+  width: 12px;
+  height: 9px;
+  background: #e5a94c;
+  border: 1.5px solid #8c5323;
+  border-radius: 2px 6px 3px 5px;
+  display: inline-block;
+  transform: rotate(-14deg);
+}
+
