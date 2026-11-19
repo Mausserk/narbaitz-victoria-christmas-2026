@@ -173,7 +173,7 @@ function mountApp(): void {
 
   const shell = el('main', 'page-shell');
 
-  // 1. Woody Claws Carved Western Red Cedar Header (Compact -> Opens Straight to Step 1!)
+  // 1. Woody Clause Carved Western Red Cedar Header (Compact -> Opens Straight to Step 1!)
   const hero = el('header', 'hero-card');
   hero.appendChild(el('div', 'cedar-bark-trim'));
   hero.appendChild(createMycelialGarlandSvg());
@@ -181,14 +181,14 @@ function mountApp(): void {
   const heroImg = el('img', 'hero-banner-img');
   heroImg.src = './assets/woody-claws-hero.jpg';
   heroImg.alt =
-    'Bronze-Age comic illustration of Malahat driftwood giant Woody Claws with a glowing golden ember in his wooden chest carving cedar survey scrolls beside a lily pad, crimson rose, and golden dandelion';
+    'Bronze-Age comic illustration of Malahat driftwood giant Woody Clause with a glowing golden ember in his wooden chest carving cedar survey scrolls beside a lily pad, crimson rose, and golden dandelion';
 
   const heroCopy = el('div', 'hero-copy');
   heroCopy.appendChild(
     el(
       'span',
       'postmark-stamp',
-      '🪵🌿 Official Tree-Mail from Woody Claws · Thu Dec 10 – Mon Dec 14, 2026 · Victoria, BC'
+      '🪵🌿 Official Tree-Mail from Woody Clause · Thu Dec 10 – Mon Dec 14, 2026 · Victoria, BC'
     )
   );
   heroCopy.appendChild(el('h1', 'hero-title', 'WE WOOD LOVE YOUR INPUT!'));
@@ -196,7 +196,7 @@ function mountApp(): void {
     el(
       'p',
       'hero-subtitle',
-      'Your input is needed — don’t LEAF Woody Claws hanging! Now that the talking trees revealed Cathy (GOTY!), Pedro & Tom are coming West Dec 10–14, take 60 seconds to LOG your wishes & SPRUCE up the Coast:'
+      'Your input is needed — don’t LEAF Woody Clause hanging! Now that the talking trees revealed Cathy (GOTY!), Pedro & Tom are coming West Dec 10–14, take 60 seconds to LOG your wishes & SPRUCE up the Coast:'
     )
   );
 
@@ -230,7 +230,7 @@ function mountApp(): void {
     el(
       'p',
       'section-lead',
-      'Tap your portrait below so Woody Claws, Markus & Tricia know whose Victoria votes & pantry favorites we’re carving into cedar:'
+      'Tap your portrait below so Woody Clause, Markus & Tricia know whose Victoria votes & pantry favorites we’re carving into cedar:'
     )
   );
   const castGrid = el('div', 'cast-grid');
@@ -532,20 +532,20 @@ function mountApp(): void {
   });
   shell.appendChild(weekendSec);
 
-  // 6. Step 5 of 6: Woody Claws' Cedar Woodchipper (Buzzkill Mulcher!)
+  // 6. Step 5 of 6: Woody Clause's Cedar Woodchipper (Buzzkill Mulcher!)
   const naughtySec = el('section', 'section-card section-card-naughty');
   naughtySec.id = 'step-buzzkills';
   naughtySec.appendChild(
-    el('span', 'section-step section-step-mulch', '🪵🌿 Step 5 of 6 · Woody Claws’ Cedar Woodchipper')
+    el('span', 'section-step section-step-mulch', '🪵🌿 Step 5 of 6 · Woody Clause’s Cedar Woodchipper')
   );
   naughtySec.appendChild(
-    el('h2', 'section-title', 'What Trip Buzzkills Should Woody Claws Mulch Into Woodchips?')
+    el('h2', 'section-title', 'What Trip Buzzkills Should Woody Clause Mulch Into Woodchips?')
   );
   naughtySec.appendChild(
     el(
       'p',
       'section-lead',
-      'Woody Claws wants the West Coast in tip-top shape for GOTY’s arrival! Tap any energy-drainers below and Woody will shred them into fragrant cedar mulch for Cathy’s rose garden:'
+      'Woody Clause wants the West Coast in tip-top shape for GOTY’s arrival! Tap any energy-drainers below and Woody will shred them into fragrant cedar mulch for Cathy’s rose garden:'
     )
   );
 
@@ -553,13 +553,13 @@ function mountApp(): void {
   const naughtyBannerImg = el('img', 'naughty-banner-img');
   naughtyBannerImg.src = './assets/woody-claws-mulch.jpg';
   naughtyBannerImg.alt =
-    'Bronze-Age comic illustration of driftwood giant Woody Claws happily feeding a ringing alarm clock, soapy dishes, raincloud, and queue ropes into a rustic log woodchipper that shoots out golden cedar rose mulch';
+    'Bronze-Age comic illustration of driftwood giant Woody Clause happily feeding a ringing alarm clock, soapy dishes, raincloud, and queue ropes into a rustic log woodchipper that shoots out golden cedar rose mulch';
   const visualCaption = el('div', 'naughty-visual-caption');
   visualCaption.append(
     el(
       'span',
       undefined,
-      '🪵 Tap any buzzkill card below to toss it into Woody Claws’ hollow-log woodchipper!'
+      '🪵 Tap any buzzkill card below to toss it into Woody Clause’s hollow-log woodchipper!'
     ),
     el('span', 'naughty-example-flow', '⏰ Early Alarms + 🧽 Dish Duty ➔ 🪵🌹 Rose Mulch!')
   );
@@ -574,7 +574,7 @@ function mountApp(): void {
   const customNaughtyLabel = el(
     'label',
     'field-label',
-    '🌿 Any Other Trip Buzzkill for Woody Claws to Mulch? (Optional):'
+    '🌿 Any Other Trip Buzzkill for Woody Clause to Mulch? (Optional):'
   );
   customNaughtyLabel.htmlFor = 'custom-naughty-input';
   const customNaughtyInput = el('input', 'text-input');
@@ -609,7 +609,7 @@ function mountApp(): void {
     headingWrap.appendChild(el('div', 'wax-seal-medal', '🪵'));
     const titleBox = el('div');
     titleBox.appendChild(
-      el('h3', 'scroll-title', 'Woody Claws’ Official Mulched-Buzzkills Scroll')
+      el('h3', 'scroll-title', 'Woody Clause’s Official Mulched-Buzzkills Scroll')
     );
     titleBox.appendChild(
       el(
@@ -750,7 +750,7 @@ function mountApp(): void {
     el(
       'p',
       'section-lead',
-      'So Woody Claws, Markus & Tricia have your favorite coffee, snacks, and dinner cravings stocked before Thursday, Dec 10!'
+      'So Woody Clause, Markus & Tricia have your favorite coffee, snacks, and dinner cravings stocked before Thursday, Dec 10!'
     )
   );
 
@@ -917,7 +917,7 @@ function mountApp(): void {
       if (navigator.share) {
         try {
           await navigator.share({
-            title: 'My Woody Claws Victoria Dec 10–14 Wishes',
+            title: 'My Woody Clause Victoria Dec 10–14 Wishes',
             text: lastReceiptText,
           });
           return;

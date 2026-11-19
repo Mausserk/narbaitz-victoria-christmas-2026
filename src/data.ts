@@ -52,19 +52,19 @@ export const CAST_MEMBERS: CastMember[] = [
     accentHex: '#1E5AA8',
     avatarSrc: './assets/avatar-pedro.jpg',
     greeting:
-      'Special Lily-Pad Tree-Mail for Pedro! Okay, Markus was right—the trees really DO talk to each other! Woody Claws has morning crosswords, Island woodworkers, and #10 Messi & Argentina highlights queued up for your West Coast arrival.',
+      'Special Lily-Pad Tree-Mail for Pedro! Okay, Markus was right—the trees really DO talk to each other! Woody Clause has morning crosswords, Island woodworkers, and #10 Messi & Argentina highlights queued up for your West Coast arrival.',
     coffeePlaceholder: 'e.g., Dark roast coffee, yerba mate, biscotti, crunchy afternoon snacks...',
   },
   {
     id: 'cathy',
     name: 'Cathy',
     heroTitle: 'GOTY · Sizzler Daredevil & Rose Gardener',
-    rosterBadge: 'Grandma of the Year & Woody Claws’ #1 Muse',
+    rosterBadge: 'Grandma of the Year & Woody Clause’s #1 Muse',
     deliveryBadge: '🌹 Delivered via Ottawa Prize Rose',
     accentHex: '#C9425A',
     avatarSrc: './assets/avatar-cathy.jpg',
     greeting:
-      'Ever since your fearless June Sizzler Slide scream lit an ember in Woody Claws’ driftwood heart, the whole forest has been awaiting GOTY’s return! Your kitchen apron & dish sponge are 100% retired Dec 10–14 while Markus cooks—you’re strictly on Barclay toddler-wrangling, storybooks & ice-cream duty!',
+      'Ever since your fearless June Sizzler Slide scream lit an ember in Woody Clause’s driftwood heart, the whole forest has been awaiting GOTY’s return! Your kitchen apron & dish sponge are 100% retired Dec 10–14 while Markus cooks—you’re strictly on Barclay toddler-wrangling, storybooks & ice-cream duty!',
     coffeePlaceholder: 'e.g., Morning tea or oat latte, shortbread, fresh bakery pastry...',
   },
   {
@@ -88,7 +88,7 @@ export const CAST_MEMBERS: CastMember[] = [
     accentHex: '#D9483B',
     avatarSrc: './assets/avatar-tricia.jpg',
     greeting:
-      'The backyard cedars overheard your Category-5 excitement and tipped off Woody Claws! Ready to have Pedro, Cathy & Tommy under one roof (hide the coasters and brace for joyful spills!).',
+      'The backyard cedars overheard your Category-5 excitement and tipped off Woody Clause! Ready to have Pedro, Cathy & Tommy under one roof (cozy coffees, happy laughs, and Markus on standby with the dish towel!).',
     coffeePlaceholder: 'e.g., Oat latte, mandarins, dark chocolate oranges, sparkling water...',
   },
   {
@@ -100,7 +100,7 @@ export const CAST_MEMBERS: CastMember[] = [
     accentHex: '#2B6E84',
     avatarSrc: './assets/avatar-markus.jpg',
     greeting:
-      'Officially vindicated on the talking-tree network! Skillets hot, espresso pulling, keeping Cathy 100% out of the dish pit, and teaming up with Woody Claws to get the West Coast in tip-top shape.',
+      'Officially vindicated on the talking-tree network! Skillets hot, espresso pulling, keeping Cathy 100% out of the dish pit, and teaming up with Woody Clause to get the West Coast in tip-top shape.',
     coffeePlaceholder: 'e.g., Double espresso, warm cinnamon rolls, crisp apples...',
   },
 ];

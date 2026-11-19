@@ -75,7 +75,7 @@ export async function postBallotToSheetWebhook(
   if (!webhookUrl) {
     return {
       delivered: false,
-      note: 'Carved into cedar on your phone! Tap "Send Tree-Mail Summary to Family Chat" or "Copy Summary" below so Woody Claws, Markus & Tricia see your picks right away.',
+      note: 'Carved into cedar on your phone! Tap "Send Tree-Mail Summary to Family Chat" or "Copy Summary" below so Woody Clause, Markus & Tricia see your picks right away.',
     };
   }
 
@@ -123,7 +123,7 @@ export function formatEmojiBallotReceipt(payload: VictoriaBallotPayload): string
     : '';
 
   return [
-    `🪵🌿 WOODY CLAWS TREE-MAIL DISPATCH — ${payload.voterName.toUpperCase()} (${payload.heroTitle})`,
+    `🪵🌿 WOODY CLAUSE TREE-MAIL DISPATCH — ${payload.voterName.toUpperCase()} (${payload.heroTitle})`,
     `🎯 Holiday Vibe Vote: ${payload.vibeChoiceLabel}`,
     `🥂 Fri Dec 11 Adult Daycare Window (Top 2):`,
     friLines,
