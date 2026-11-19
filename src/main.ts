@@ -204,7 +204,7 @@ function mountApp(): void {
   const comicLink = el(
     'a',
     'comic-pdf-pill',
-    '📖 Read 9-Page Issue #1 Comic: "The Ballad of Woody Claws" (PDF)'
+    '📖 Read 10-Page Issue #1 Comic: "The Ballad of Woody Claws" (PDF)'
   );
   comicLink.href = './assets/woody-claws-issue-1.pdf';
   comicLink.target = '_blank';
