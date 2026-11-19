@@ -1,28 +1,21 @@
-export interface RankedOptionEntry {
-  rank: number;
-  id: string;
-  title: string;
-  windowLabel: string;
-}
-
 export interface VictoriaBallotPayload {
-  schemaVersion: 'v4';
+  schemaVersion: 'v5';
   submittedAtIso: string;
   voterId: string;
   voterName: string;
-  heroTitle: string;
   vibeChoiceId: string;
   vibeChoiceLabel: string;
-  rankedFridayAdult: RankedOptionEntry[];
-  rankedWeekendOutings: RankedOptionEntry[];
-  vetoedPetPeeves: string[];
-  customVetoNote: string;
-  paceScore: number;
-  paceLabel: string;
+  sliders: {
+    adventureVsRelax: { score: number; label: string };
+    indoorsVsOutdoors: { score: number; label: string };
+    familiarVsNew: { score: number; label: string };
+  };
+  fridayPriorities: string[];
+  bucketList: string;
+  buzzkillList: string;
+  quickBuzzkills: string[];
   morningCoffeeAndTreats: string;
-  christmasFeastOrGameWish: string;
   travelFlightOrFerryInfo: string;
-  symphonyCandlelightInterest: boolean;
 }
 
 const LAST_SUBMIT_KEY = 'xmas_victoria_last_submit_ts';
@@ -31,7 +24,7 @@ const COOLDOWN_MS = 3500;
 /**
  * Strips C0/CR/LF control characters to prevent header or spreadsheet formula injection.
  */
-export function sanitizeInputText(raw: string, maxLen = 240): string {
+export function sanitizeInputText(raw: string, maxLen = 360): string {
   const cleaned = raw.replace(/[\u0000-\u001F\u007F]/g, ' ').replace(/\s+/g, ' ').trim();
   const safePrefix = /^[=+\-@]/.test(cleaned) ? `'${cleaned}` : cleaned;
   return safePrefix.slice(0, maxLen);
@@ -75,7 +68,7 @@ export async function postBallotToSheetWebhook(
   if (!webhookUrl) {
     return {
       delivered: false,
-      note: 'Carved into cedar on your phone! Tap "Send Tree-Mail Summary to Family Chat" or "Copy Summary" below so Woody Clause, Markus & Tricia see your picks right away.',
+      note: 'Saved on your device! Tap "Send Summary to Family Chat" or "Copy Summary" below so Markus & Tricia see your picks right away.',
     };
   }
 
@@ -90,52 +83,42 @@ export async function postBallotToSheetWebhook(
     });
     return {
       delivered: true,
-      note: 'Zapped across the Wood-Wide Web straight to our Victoria Tracker Sheet — plus you can drop your 1-tap summary into the Family Chat below!',
+      note: 'Sent straight to our Victoria Trip Sheet — you can also drop your summary into the Family Chat below.',
     };
   } catch {
     return {
       delivered: false,
-      note: 'Saved on your device! Tap "Send Tree-Mail Summary to Family Chat" below so zero Victoria wishes are missed.',
+      note: 'Saved on your device! Tap "Send Summary to Family Chat" below so zero Victoria wishes are missed.',
     };
   }
 }
 
-export function formatEmojiBallotReceipt(payload: VictoriaBallotPayload): string {
-  const friLines = payload.rankedFridayAdult
-    .slice(0, 2)
-    .map((item) => `  #${item.rank} ${item.title}`)
-    .join('\n');
-  const weekendTopThree = payload.rankedWeekendOutings
-    .slice(0, 3)
-    .map((item) => `  #${item.rank} ${item.title}`)
-    .join('\n');
-  const weekendSkip = payload.rankedWeekendOutings[payload.rankedWeekendOutings.length - 1];
-  const mulchedItems =
-    payload.vetoedPetPeeves.length > 0
-      ? payload.vetoedPetPeeves.join('; ')
-      : 'Easygoing — zero buzzkills to mulch!';
-  const extraMulch = payload.customVetoNote ? ` (+ ${payload.customVetoNote})` : '';
-  const travelLine = payload.travelFlightOrFerryInfo
-    ? `✈️⛴️ Thu Dec 10 / Mon Dec 14 Travel: ${payload.travelFlightOrFerryInfo}`
-    : '✈️⛴️ Thu Dec 10 / Mon Dec 14 Travel: Still booking / TBD';
-  const symphonyLine = payload.symphonyCandlelightInterest
-    ? '\n🕯️🎻 Bonus: Curious about Victoria Symphony "Messiah by Candlelight"!'
-    : '';
+export function formatBallotReceipt(payload: VictoriaBallotPayload): string {
+  const fridayLine =
+    payload.fridayPriorities.length > 0
+      ? payload.fridayPriorities.join(', ')
+      : 'Up for anything!';
 
-  return [
-    `🪵🌿 WOODY CLAUSE TREE-MAIL DISPATCH — ${payload.voterName.toUpperCase()} (${payload.heroTitle})`,
-    `🎯 Holiday Vibe Vote: ${payload.vibeChoiceLabel}`,
-    `🥂 Fri Dec 11 Adult Daycare Window (Top 2):`,
-    friLines,
-    `✨ Sat/Sun Outings (Top 3 around Barclay's Nap):`,
-    weekendTopThree,
-    weekendSkip ? `❄️ First to Skip if Tired: ${weekendSkip.title}` : '',
-    `🪵 Mulched into Cedar Woodchips: ${mulchedItems}${extraMulch}`,
-    `🕯️ Ideal Trip Pace: ${payload.paceLabel}`,
-    `☕🍪 Morning Mug & Pantry: ${payload.morningCoffeeAndTreats || 'Surprise me with good coffee & treats!'}`,
-    `🥧🎬🎲 Dinner / Movie / Game Wish: ${payload.christmasFeastOrGameWish || 'Up for anything cozy!'}`,
-    travelLine,
-  ]
-    .filter(Boolean)
-    .join('\n') + symphonyLine;
+  const buzzkillParts = [
+    ...payload.quickBuzzkills,
+    ...(payload.buzzkillList ? [payload.buzzkillList] : []),
+  ];
+  const buzzkillLine =
+    buzzkillParts.length > 0 ? buzzkillParts.join(' · ') : 'Easygoing — nothing to skip!';
+
+  const lines = [
+    `WOODY CLAUSE TREE-MAIL — ${payload.voterName.toUpperCase()} (Dec 10–14, Victoria)`,
+    `Holiday Vibe: ${payload.vibeChoiceLabel}`,
+    `Trip Sliders (1–5):`,
+    `  • Relaxation -> Adventure: ${payload.sliders.adventureVsRelax.score}/5 (${payload.sliders.adventureVsRelax.label})`,
+    `  • Indoors -> Outdoors: ${payload.sliders.indoorsVsOutdoors.score}/5 (${payload.sliders.indoorsVsOutdoors.label})`,
+    `  • Familiar -> New: ${payload.sliders.familiarVsNew.score}/5 (${payload.sliders.familiarVsNew.label})`,
+    `Fri Dec 11 Child-Free Day: ${fridayLine}`,
+    `West Coast Bucket List: ${payload.bucketList || 'Surprise me!'}`,
+    `West Coast Buzzkills: ${buzzkillLine}`,
+    `Morning Mug & Pantry: ${payload.morningCoffeeAndTreats || 'Surprise me with good coffee & snacks!'}`,
+    `Travel Info: ${payload.travelFlightOrFerryInfo || 'Still booking / TBD'}`,
+  ];
+
+  return lines.join('\n');
 }

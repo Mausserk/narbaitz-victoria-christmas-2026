@@ -1184,7 +1184,7 @@ body {
 }
 
 /* =========================================================
-   v4.0 Woody Claws Western Red Cedar & Botanical Styling
+   v4.0–v5.0 Woody Clause Western Red Cedar Styling
    ========================================================= */
 .cedar-bark-trim {
   height: 12px;
@@ -1210,7 +1210,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 12px;
 }
 
@@ -1221,9 +1221,9 @@ body {
   background: linear-gradient(180deg, #ffe39f 0%, #f0b43e 100%);
   color: #2c1708;
   font-weight: 850;
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   text-decoration: none;
-  padding: 9px 15px;
+  padding: 10px 16px;
   border-radius: 999px;
   border: 2px solid var(--border-ink);
   box-shadow: 0 3px 0 var(--border-ink);
@@ -1235,22 +1235,342 @@ body {
   background: #ffecb8;
 }
 
-.botanical-legend {
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: #fdecc8;
+/* Step 1: 3-Person Voter Grid (Pedro, Cathy, Tom) */
+.cast-grid-three {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
 }
 
-.cast-delivery-tag {
+@media (max-width: 480px) {
+  .cast-grid-three {
+    gap: 8px;
+  }
+  .cast-grid-three .cast-avatar {
+    width: 74px;
+    height: 74px;
+  }
+}
+
+.cast-check {
   display: inline-block;
-  margin-top: 5px;
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: var(--cedar-wood-dark);
-  background: #faecd2;
-  border: 1px solid rgba(122, 73, 40, 0.42);
+  margin-top: 6px;
+  padding: 3px 9px;
   border-radius: 999px;
-  padding: 2px 8px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--ink-muted);
+  background: rgba(23, 35, 30, 0.06);
+  border: 1.5px solid rgba(23, 35, 30, 0.22);
+}
+
+.cast-check.is-selected {
+  color: #ffffff;
+  background: var(--evergreen);
+  border-color: var(--border-ink);
+}
+
+/* Step 2: Interactive Vibe Scene Switcher */
+.vibe-stage-wrap {
+  position: relative;
+  overflow: hidden;
+  background: #17231e;
+}
+
+.vibe-banner-img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.vibe-banner-img.is-swapping {
+  animation: vibeSwapIn 0.28s ease-out;
+}
+
+@keyframes vibeSwapIn {
+  0% {
+    opacity: 0.35;
+    transform: scale(1.015);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.vibe-stage-pill {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(23, 35, 30, 0.88);
+  color: #fff8e8;
+  border: 2px solid #f0b43e;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.vibe-card-compact {
+  display: block;
+  text-align: left;
+  padding: 15px 16px;
+}
+
+/* Step 3: Tactile Cedar Sliders & Friday Child-Free Day */
+.sliders-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.slider-card {
+  background: var(--bg-parchment);
+  border: 2px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  box-shadow: 0 2px 0 var(--border-ink);
+}
+
+.slider-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.slider-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.04rem;
+  color: var(--ink-primary);
+}
+
+.slider-value-pill {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--evergreen);
+  color: #ffffff;
+  border: 1.5px solid var(--border-ink);
+  font-size: 0.8rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.slider-endpoints {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 0.84rem;
+  font-weight: 750;
+  color: var(--cedar-wood-dark);
+}
+
+.slider-end-right {
+  text-align: right;
+}
+
+.cedar-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #dceae2 0%, #f6dfab 50%, #e7c288 100%);
+  border: 2px solid var(--border-ink);
+  outline: none;
+  cursor: pointer;
+}
+
+.cedar-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--cranberry);
+  border: 2.5px solid var(--border-ink);
+  box-shadow: 0 2px 0 var(--border-ink);
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.cedar-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.08);
+}
+
+.cedar-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--cranberry);
+  border: 2.5px solid var(--border-ink);
+  box-shadow: 0 2px 0 var(--border-ink);
+  cursor: pointer;
+}
+
+.slider-readout {
+  margin: 10px 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--evergreen);
+}
+
+.sub-section-block {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 2px dashed rgba(23, 35, 30, 0.18);
+}
+
+.sub-section-title {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 1.14rem;
+  font-weight: 800;
+  color: var(--ink-primary);
+}
+
+.sub-section-lead {
+  margin-bottom: 12px;
+}
+
+.friday-vibe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.friday-vibe-card {
+  appearance: none;
+  text-align: left;
+  font: inherit;
+  color: var(--ink-primary);
+  background: var(--bg-parchment);
+  border: 2px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 13px 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: transform 0.12s ease, background-color 0.14s ease, box-shadow 0.14s ease;
+}
+
+.friday-vibe-card:hover {
+  transform: translateY(-1px);
+  background: #fff9ea;
+}
+
+.friday-vibe-card.is-selected {
+  background: var(--evergreen-soft);
+  border-color: var(--evergreen);
+  box-shadow: 0 0 0 2px var(--evergreen), 0 3px 0 var(--border-ink);
+}
+
+.friday-vibe-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.friday-vibe-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.98rem;
+}
+
+.friday-vibe-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 900;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.friday-vibe-card.is-selected .friday-vibe-check {
+  background: var(--evergreen);
+  color: #ffffff;
+}
+
+.friday-vibe-summary {
+  font-size: 0.87rem;
+  color: var(--ink-muted);
+  line-height: 1.38;
+}
+
+/* Step 4: Bucket List & Buzzkill Textareas + Quick Chips */
+.field-hint {
+  margin: 0 0 8px;
+  font-size: 0.89rem;
+  color: var(--ink-muted);
+  line-height: 1.4;
+}
+
+.text-area {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  border: 2px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  background: var(--bg-parchment);
+  color: var(--ink-primary);
+  resize: vertical;
+  min-height: 86px;
+}
+
+.text-area:focus {
+  outline: 3px solid var(--gold);
+  background: #ffffff;
+}
+
+.buzzkill-group {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 2px dashed rgba(23, 35, 30, 0.16);
+}
+
+.quick-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 11px;
+}
+
+.quick-chip {
+  appearance: none;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 750;
+  color: var(--ink-primary);
+  background: var(--bg-parchment);
+  border: 1.5px solid var(--border-ink);
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.12s ease, transform 0.1s ease;
+}
+
+.quick-chip:hover {
+  transform: translateY(-1px);
+  background: #fff4df;
+}
+
+.quick-chip.is-selected {
+  background: var(--cedar-wood-dark);
+  color: #fffaf0;
+  border-color: var(--border-ink);
 }
 
 .section-step-mulch {
@@ -1259,18 +1579,4 @@ body {
   border-color: var(--border-ink);
 }
 
-.mulch-sack-counter {
-  background: var(--cedar-wood-dark);
-  color: #fff8e8;
-}
-
-.woodchip-dot {
-  width: 12px;
-  height: 9px;
-  background: #e5a94c;
-  border: 1.5px solid #8c5323;
-  border-radius: 2px 6px 3px 5px;
-  display: inline-block;
-  transform: rotate(-14deg);
-}
 
