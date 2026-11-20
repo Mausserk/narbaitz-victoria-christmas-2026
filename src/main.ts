@@ -27,8 +27,6 @@ interface AppState {
   bucketList: string;
   buzzkillList: string;
   quickBuzzkills: string[];
-  morningCoffeeAndTreats: string;
-  travelFlightOrFerryInfo: string;
   honeypot: string;
 }
 
@@ -68,10 +66,6 @@ function loadInitialState(): AppState {
               (c): c is string => typeof c === 'string' && validChips.has(c)
             )
           : [],
-        morningCoffeeAndTreats:
-          typeof parsed.morningCoffeeAndTreats === 'string' ? parsed.morningCoffeeAndTreats : '',
-        travelFlightOrFerryInfo:
-          typeof parsed.travelFlightOrFerryInfo === 'string' ? parsed.travelFlightOrFerryInfo : '',
         honeypot: '',
       };
     }
@@ -88,8 +82,6 @@ function loadInitialState(): AppState {
     bucketList: '',
     buzzkillList: '',
     quickBuzzkills: [],
-    morningCoffeeAndTreats: '',
-    travelFlightOrFerryInfo: '',
     honeypot: '',
   };
 }
@@ -159,6 +151,8 @@ function mountApp(): void {
 
   const state = loadInitialState();
   let lastDeliveryNote = '';
+  let lastSubmittedName = '';
+  let lastDelivered = false;
 
   // Preload all 3 interactive vibe comic illustrations for instant switching
   VIBE_OPTIONS.forEach((opt) => {
@@ -168,7 +162,7 @@ function mountApp(): void {
 
   const shell = el('main', 'page-shell');
 
-  // 1. Woody Clause Header (Clean, light on emojis, zero botanical legend)
+  // 1. Woody Clause Header
   const hero = el('header', 'hero-card');
   hero.appendChild(el('div', 'cedar-bark-trim'));
   hero.appendChild(createMycelialGarlandSvg());
@@ -210,14 +204,13 @@ function mountApp(): void {
   hero.append(heroImg, heroCopy);
   shell.appendChild(hero);
 
-  // 2. Step 1 of 5: Voter Picker (Pedro, Cathy, Tom ONLY — clean & uncluttered)
+  // 2. Step 1 of 4: Voter Picker (Pedro, Cathy, Tom ONLY)
   const castSec = el('section', 'section-card');
   castSec.id = 'step-hero-picker';
-  castSec.appendChild(el('span', 'section-step', 'Step 1 of 5 · Who’s Answering?'));
+  castSec.appendChild(el('span', 'section-step', 'Step 1 of 4 · Who’s Answering?'));
   castSec.appendChild(el('h2', 'section-title', 'Tap Your Portrait'));
 
   const castGrid = el('div', 'cast-grid cast-grid-three');
-  const coffeeInput = el('input', 'text-input');
 
   function renderCastPicker(): void {
     castGrid.replaceChildren();
@@ -242,48 +235,43 @@ function mountApp(): void {
       btn.append(img, nameEl, statePill);
       btn.addEventListener('click', () => {
         state.voterId = member.id;
-        coffeeInput.placeholder = member.coffeePlaceholder;
         saveDraft(state);
         renderCastPicker();
       });
       castGrid.appendChild(btn);
-    }
-    const active = CAST_MEMBERS.find((c) => c.id === state.voterId);
-    if (active) {
-      coffeeInput.placeholder = active.coffeePlaceholder;
     }
   }
   renderCastPicker();
   castSec.appendChild(castGrid);
   shell.appendChild(castSec);
 
-  // 3. Step 2 of 5: Holiday Vibe Check (Dynamic Comic Scene Switcher!)
+  // 3. Step 2 of 4: Holiday Vibe Check (Picture + 3 Horizontal Columns right underneath!)
   const vibeSec = el('section', 'section-card');
   vibeSec.id = 'step-vibe-check';
-  vibeSec.appendChild(el('span', 'section-step section-step-nice', 'Step 2 of 5 · The Holiday Vibe Check'));
-  vibeSec.appendChild(
-    el('h2', 'section-title', 'How Festive Should Victoria Feel?')
-  );
+  vibeSec.appendChild(el('span', 'section-step section-step-nice', 'Step 2 of 4 · The Holiday Vibe Check'));
+  vibeSec.appendChild(el('h2', 'section-title', 'How Festive Should Victoria Feel?'));
   vibeSec.appendChild(
     el(
       'p',
       'section-lead',
-      'Since you’re home in Ottawa for Dec 25, tap each option below to preview how far we should lean into Christmas during Dec 10–14:'
+      'Tap Option 1, 2, or 3 below the picture to watch the Christmas vibe change — no scrolling needed:'
     )
   );
 
-  const vibeBannerFrame = el('div', 'vibe-banner-frame');
+  const vibeBannerFrame = el('div', 'vibe-banner-frame vibe-banner-tight');
   const vibeStageWrap = el('div', 'vibe-stage-wrap');
   const vibeBannerImg = el('img', 'vibe-banner-img');
   const vibeStagePill = el('span', 'vibe-stage-pill');
   vibeStageWrap.append(vibeBannerImg, vibeStagePill);
-  const vibeBannerCaption = el('div', 'vibe-banner-caption');
-  vibeBannerFrame.append(vibeStageWrap, vibeBannerCaption);
-  vibeSec.appendChild(vibeBannerFrame);
+  vibeBannerFrame.appendChild(vibeStageWrap);
 
-  function updateVibeScenePreview(animate: boolean): void {
+  const vibeTabsRow = el('div', 'vibe-tabs-row');
+  const vibeActiveDetail = el('div', 'vibe-active-detail');
+
+  function renderVibeOptions(animate = false): void {
     const activeOpt: VibeOption =
       VIBE_OPTIONS.find((v) => v.id === state.vibeChoiceId) || VIBE_OPTIONS[1];
+
     if (animate) {
       vibeBannerImg.classList.remove('is-swapping');
       void vibeBannerImg.offsetWidth;
@@ -293,51 +281,54 @@ function mountApp(): void {
     vibeBannerImg.alt = activeOpt.imageAlt;
     vibeStagePill.textContent = state.vibeChoiceId
       ? activeOpt.badge
-      : 'Tap an option below to preview';
-    vibeBannerCaption.textContent = activeOpt.sceneCaption;
-  }
+      : 'Previewing Option 2 · Tap a button below';
 
-  const vibeGrid = el('div', 'vibe-grid');
-  function renderVibeOptions(animate = false): void {
-    updateVibeScenePreview(animate);
-    vibeGrid.replaceChildren();
+    vibeTabsRow.replaceChildren();
     for (const opt of VIBE_OPTIONS) {
       const selected = state.vibeChoiceId === opt.id;
-      const card = el('button', selected ? 'vibe-card vibe-card-compact is-selected' : 'vibe-card vibe-card-compact');
-      card.id = `vibe-btn-${opt.id}`;
-      card.type = 'button';
-      card.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      const tab = el('button', selected ? 'vibe-tab-col is-selected' : 'vibe-tab-col');
+      tab.id = `vibe-btn-${opt.id}`;
+      tab.type = 'button';
+      tab.setAttribute('aria-pressed', selected ? 'true' : 'false');
 
-      const body = el('span', 'vibe-card-body');
-      body.appendChild(el('span', 'vibe-badge', opt.badge));
-      body.appendChild(el('span', 'vibe-title', opt.title));
-      body.appendChild(el('span', 'vibe-desc', opt.description));
-      body.appendChild(
-        el(
-          'span',
-          'vibe-select-pill',
-          selected ? '✓ Selected Vibe' : 'Tap to preview & choose'
-        )
+      tab.append(
+        el('span', 'vibe-tab-num', selected ? `✓ ${opt.tabNum}` : opt.tabNum),
+        el('span', 'vibe-tab-title', opt.tabTitle),
+        el('span', 'vibe-tab-sub', opt.tabSub)
       );
 
-      card.appendChild(body);
-      card.addEventListener('click', () => {
+      tab.addEventListener('click', () => {
         const changed = state.vibeChoiceId !== opt.id;
         state.vibeChoiceId = opt.id;
         saveDraft(state);
         renderVibeOptions(changed);
       });
-      vibeGrid.appendChild(card);
+      vibeTabsRow.appendChild(tab);
     }
+
+    vibeActiveDetail.replaceChildren();
+    const detailHead = el('div', 'vibe-detail-head');
+    detailHead.append(
+      el('strong', 'vibe-detail-title', activeOpt.title),
+      el(
+        'span',
+        state.vibeChoiceId ? 'vibe-detail-status is-selected' : 'vibe-detail-status',
+        state.vibeChoiceId ? '✓ Selected' : 'Tap an option above'
+      )
+    );
+    vibeActiveDetail.append(
+      detailHead,
+      el('p', 'vibe-detail-desc', activeOpt.description)
+    );
   }
   renderVibeOptions(false);
-  vibeSec.appendChild(vibeGrid);
+  vibeSec.append(vibeBannerFrame, vibeTabsRow, vibeActiveDetail);
   shell.appendChild(vibeSec);
 
-  // 4. Step 3 of 5: Trip Sliders + Friday Barclay-Free Day
+  // 4. Step 3 of 4: Trip Sliders + Friday Barclay-Free Day
   const styleSec = el('section', 'section-card');
   styleSec.id = 'step-trip-style';
-  styleSec.appendChild(el('span', 'section-step section-step-nice', 'Step 3 of 5 · Your Ideal Trip Style'));
+  styleSec.appendChild(el('span', 'section-step section-step-nice', 'Step 3 of 4 · Your Ideal Trip Style'));
   styleSec.appendChild(el('h2', 'section-title', 'Dial In Your West Coast Pace & Vibe'));
   styleSec.appendChild(
     el(
@@ -385,7 +376,6 @@ function mountApp(): void {
   }
   styleSec.appendChild(slidersStack);
 
-  // Friday Barclay-Free Day (high-level picks)
   const fridayDivider = el('div', 'sub-section-block');
   fridayDivider.appendChild(
     el('h3', 'sub-section-title', 'Friday, Dec 11 — Our Barclay-Free Adult Day (8am–5pm)')
@@ -432,11 +422,11 @@ function mountApp(): void {
   styleSec.appendChild(fridayDivider);
   shell.appendChild(styleSec);
 
-  // 5. Step 4 of 5: West Coast Bucket List vs. Buzzkill List
+  // 5. Step 4 of 4: West Coast Bucket List, Buzzkill List & Submit!
   const wishesSec = el('section', 'section-card section-card-wishes');
   wishesSec.id = 'step-bucket-buzzkills';
   wishesSec.appendChild(
-    el('span', 'section-step section-step-mulch', 'Step 4 of 5 · Bucket List & Buzzkills')
+    el('span', 'section-step section-step-mulch', 'Step 4 of 4 · Bucket List & Buzzkills')
   );
   wishesSec.appendChild(
     el('h2', 'section-title', 'What Are You Most Looking Forward To — And What Should We Skip?')
@@ -516,50 +506,6 @@ function mountApp(): void {
   });
   buzzkillGroup.append(buzzkillLabel, buzzkillHint, chipRow, buzzkillInput);
 
-  wishesSec.append(bucketGroup, buzzkillGroup);
-  shell.appendChild(wishesSec);
-
-  // 6. Step 5 of 5: Morning Mug, Travel Info & 1-Tap Send
-  const finalSec = el('section', 'section-card');
-  finalSec.id = 'step-pantry-travel';
-  finalSec.appendChild(el('span', 'section-step section-step-nice', 'Step 5 of 5 · Quick Final Details'));
-  finalSec.appendChild(el('h2', 'section-title', 'Pantry Favorites & Flight Info'));
-
-  const coffeeGroup = el('div', 'field-group');
-  const coffeeLabel = el('label', 'field-label', 'Morning Mug & Must-Stock Snacks / Dinner Cravings');
-  coffeeLabel.htmlFor = 'coffee-input';
-  coffeeInput.id = 'coffee-input';
-  coffeeInput.type = 'text';
-  coffeeInput.maxLength = 200;
-  if (!coffeeInput.placeholder) {
-    coffeeInput.placeholder = 'e.g., Dark roast coffee, tea, shortbread, salmon dinner...';
-  }
-  coffeeInput.value = state.morningCoffeeAndTreats;
-  coffeeInput.addEventListener('input', () => {
-    state.morningCoffeeAndTreats = coffeeInput.value;
-    saveDraft(state);
-  });
-  coffeeGroup.append(coffeeLabel, coffeeInput);
-
-  const travelGroup = el('div', 'field-group');
-  const travelLabel = el(
-    'label',
-    'field-label',
-    'Optional: Thu Dec 10 Arrival & Mon Dec 14 Departure Info'
-  );
-  travelLabel.htmlFor = 'travel-input';
-  const travelInput = el('input', 'text-input');
-  travelInput.id = 'travel-input';
-  travelInput.type = 'text';
-  travelInput.maxLength = 180;
-  travelInput.placeholder = 'e.g., Landing YYJ Thu 4:15pm, flying home Mon noon — or "Still booking!"';
-  travelInput.value = state.travelFlightOrFerryInfo;
-  travelInput.addEventListener('input', () => {
-    state.travelFlightOrFerryInfo = travelInput.value;
-    saveDraft(state);
-  });
-  travelGroup.append(travelLabel, travelInput);
-
   // Anti-bot honeypot field
   const hpWrap = el('div', 'hp-trap');
   hpWrap.setAttribute('aria-hidden', 'true');
@@ -575,6 +521,7 @@ function mountApp(): void {
   });
   hpWrap.appendChild(hpInput);
 
+  const submitWrap = el('div', 'submit-block');
   const validationBox = el('div', 'validation-banner');
   validationBox.hidden = true;
 
@@ -583,8 +530,6 @@ function mountApp(): void {
   submitBtn.type = 'button';
 
   const receiptContainer = el('div');
-  let lastSubmittedName = '';
-  let lastDelivered = false;
 
   function renderConfirmation(): void {
     receiptContainer.replaceChildren();
@@ -676,8 +621,8 @@ function mountApp(): void {
       bucketList: sanitizeInputText(state.bucketList, 360),
       buzzkillList: sanitizeInputText(state.buzzkillList, 360),
       quickBuzzkills: [...state.quickBuzzkills],
-      morningCoffeeAndTreats: sanitizeInputText(state.morningCoffeeAndTreats, 200),
-      travelFlightOrFerryInfo: sanitizeInputText(state.travelFlightOrFerryInfo, 180),
+      morningCoffeeAndTreats: '',
+      travelFlightOrFerryInfo: '',
     };
 
     const result = await postBallotToSheetWebhook(payload);
@@ -693,8 +638,9 @@ function mountApp(): void {
     receiptContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 
-  finalSec.append(coffeeGroup, travelGroup, hpWrap, validationBox, submitBtn, receiptContainer);
-  shell.appendChild(finalSec);
+  submitWrap.append(validationBox, submitBtn, receiptContainer);
+  wishesSec.append(bucketGroup, buzzkillGroup, hpWrap, submitWrap);
+  shell.appendChild(wishesSec);
 
   const footer = el(
     'footer',

@@ -7,6 +7,9 @@ export interface CastMember {
 
 export interface VibeOption {
   id: 'west_coast_getaway' | 'sweet_spot_hybrid' | 'early_family_christmas';
+  tabNum: string;
+  tabTitle: string;
+  tabSub: string;
   badge: string;
   title: string;
   shortLabel: string;
@@ -35,25 +38,28 @@ export const CAST_MEMBERS: CastMember[] = [
     id: 'pedro',
     name: 'Pedro',
     avatarSrc: './assets/avatar-pedro.jpg',
-    coffeePlaceholder: 'e.g., Dark roast coffee, yerba mate, biscotti, afternoon snacks...',
+    coffeePlaceholder: '',
   },
   {
     id: 'cathy',
     name: 'Cathy',
     avatarSrc: './assets/avatar-cathy.jpg',
-    coffeePlaceholder: 'e.g., Morning tea or oat latte, shortbread, fresh bakery pastry...',
+    coffeePlaceholder: '',
   },
   {
     id: 'tom',
     name: 'Tom',
     avatarSrc: './assets/avatar-tommy.jpg',
-    coffeePlaceholder: 'e.g., Cold brew or espresso, game-day snacks, dark chocolate...',
+    coffeePlaceholder: '',
   },
 ];
 
 export const VIBE_OPTIONS: VibeOption[] = [
   {
     id: 'west_coast_getaway',
+    tabNum: 'Option 1',
+    tabTitle: 'Low-Key',
+    tabSub: 'Subtle festive',
     badge: 'Option 1 · Low-Key Festive',
     title: 'Loosely Festive West Coast Getaway',
     shortLabel: 'Option 1: Loosely Festive West Coast Getaway (Save Christmas for Ottawa)',
@@ -63,10 +69,13 @@ export const VIBE_OPTIONS: VibeOption[] = [
     imageAlt:
       'Comic scene of the family in cozy winter sweaters relaxing by the fireplace in Victoria with subtle twinkle lights on the mantel and misty ocean outside',
     sceneCaption:
-      'Option 1 Preview: Cozy sweaters, crackling fireplace & subtle twinkle lights — saving full Christmas for Ottawa.',
+      'Option 1: Cozy sweaters, fireplace & subtle twinkle lights — saving full Christmas for Ottawa.',
   },
   {
     id: 'sweet_spot_hybrid',
+    tabNum: 'Option 2',
+    tabTitle: 'Sweet Spot',
+    tabSub: 'Dinner + book',
     badge: 'Option 2 · The Sweet Spot',
     title: 'Festive Dinner + A Little Holiday Magic',
     shortLabel: 'Option 2: Sweet-Spot Hybrid (Festive Dinner + One Small Treat for Barclay)',
@@ -76,10 +85,13 @@ export const VIBE_OPTIONS: VibeOption[] = [
     imageAlt:
       'Comic scene of the family in festive holiday sweaters gathered around a candlelit Victoria holiday dinner with a lit Christmas tree while Barclay opens a storybook',
     sceneCaption:
-      'Option 2 Preview: Glowing tree, festive candlelit dinner & watching Barclay open one little storybook.',
+      'Option 2: Glowing tree, candlelit holiday dinner & watching Barclay open one little storybook.',
   },
   {
     id: 'early_family_christmas',
+    tabNum: 'Option 3',
+    tabTitle: 'All-Out!',
+    tabSub: 'Full Santa',
     badge: 'Option 3 · All-Out Early Christmas',
     title: 'Full Santa Gear & Over-the-Top Christmas',
     shortLabel: 'Option 3: Full Over-the-Top Early Family Christmas',
@@ -89,7 +101,7 @@ export const VIBE_OPTIONS: VibeOption[] = [
     imageAlt:
       'Comic scene of all six family members laughing in full red Santa suits and reindeer antlers while an indoor snow machine blasts fake snow across a massively decorated Victoria living room',
     sceneCaption:
-      'Option 3 Preview: Complete Santa gear, indoor snow machine blasting & maximum over-the-top Christmas vibes!',
+      'Option 3: Full Santa gear, indoor snow machine blasting & maximum over-the-top Christmas vibes!',
   },
 ];
 
