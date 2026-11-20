@@ -22,6 +22,13 @@ const LAST_SUBMIT_KEY = 'xmas_victoria_last_submit_ts';
 const COOLDOWN_MS = 3500;
 
 /**
+ * Set to Markus's Google Apps Script Web App URL (https://script.google.com/macros/s/.../exec)
+ * once deployed from XMAS_T01_Victoria_Attendance_Meal_and_Survey_Tracker.
+ */
+const DEFAULT_WEBHOOK_URL =
+  'https://script.google.com/macros/s/AKfycbxZHUqCSPtJkpypTUvZLZJmKenv1Orw4UvM0mANtl6MHwQAw6dLDJMDD42R67uZHPX8nQ/exec';
+
+/**
  * Strips C0/CR/LF control characters to prevent header or spreadsheet formula injection.
  */
 export function sanitizeInputText(raw: string, maxLen = 360): string {
@@ -58,17 +65,21 @@ export function resolveWebhookUrl(): string {
   if (typeof envHook === 'string' && envHook.startsWith('https://script.google.com/macros/s/')) {
     return envHook;
   }
+  if (DEFAULT_WEBHOOK_URL.startsWith('https://script.google.com/macros/s/')) {
+    return DEFAULT_WEBHOOK_URL;
+  }
   return '';
 }
 
 export async function postBallotToSheetWebhook(
   payload: VictoriaBallotPayload
-): Promise<{ delivered: boolean; note: string }> {
+): Promise<{ delivered: boolean; configured: boolean; note: string }> {
   const webhookUrl = resolveWebhookUrl();
   if (!webhookUrl) {
     return {
       delivered: false,
-      note: 'Saved on your device! Tap "Send Summary to Family Chat" or "Copy Summary" below so Markus & Tricia see your picks right away.',
+      configured: false,
+      note: 'Private backend collector is not connected yet — once Markus links the Google Sheet collector, your answers will save automatically.',
     };
   }
 
@@ -83,42 +94,14 @@ export async function postBallotToSheetWebhook(
     });
     return {
       delivered: true,
-      note: 'Sent straight to our Victoria Trip Sheet — you can also drop your summary into the Family Chat below.',
+      configured: true,
+      note: `Woody Clause has safely logged your Victoria wishes! Your answers are completely private — only Markus can view them. You can close this page now, or update and resubmit anytime if you change your mind.`,
     };
   } catch {
     return {
       delivered: false,
-      note: 'Saved on your device! Tap "Send Summary to Family Chat" below so zero Victoria wishes are missed.',
+      configured: true,
+      note: 'We hit a brief connection hiccup sending your answers. Please check your signal and tap Submit again in a moment.',
     };
   }
-}
-
-export function formatBallotReceipt(payload: VictoriaBallotPayload): string {
-  const fridayLine =
-    payload.fridayPriorities.length > 0
-      ? payload.fridayPriorities.join(', ')
-      : 'Up for anything!';
-
-  const buzzkillParts = [
-    ...payload.quickBuzzkills,
-    ...(payload.buzzkillList ? [payload.buzzkillList] : []),
-  ];
-  const buzzkillLine =
-    buzzkillParts.length > 0 ? buzzkillParts.join(' · ') : 'Easygoing — nothing to skip!';
-
-  const lines = [
-    `WOODY CLAUSE TREE-MAIL — ${payload.voterName.toUpperCase()} (Dec 10–14, Victoria)`,
-    `Holiday Vibe: ${payload.vibeChoiceLabel}`,
-    `Trip Sliders (1–5):`,
-    `  • Relaxation -> Adventure: ${payload.sliders.adventureVsRelax.score}/5 (${payload.sliders.adventureVsRelax.label})`,
-    `  • Indoors -> Outdoors: ${payload.sliders.indoorsVsOutdoors.score}/5 (${payload.sliders.indoorsVsOutdoors.label})`,
-    `  • Familiar -> New: ${payload.sliders.familiarVsNew.score}/5 (${payload.sliders.familiarVsNew.label})`,
-    `Fri Dec 11 Child-Free Day: ${fridayLine}`,
-    `West Coast Bucket List: ${payload.bucketList || 'Surprise me!'}`,
-    `West Coast Buzzkills: ${buzzkillLine}`,
-    `Morning Mug & Pantry: ${payload.morningCoffeeAndTreats || 'Surprise me with good coffee & snacks!'}`,
-    `Travel Info: ${payload.travelFlightOrFerryInfo || 'Still booking / TBD'}`,
-  ];
-
-  return lines.join('\n');
 }

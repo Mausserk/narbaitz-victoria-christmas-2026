@@ -1579,4 +1579,12 @@ body {
   border-color: var(--border-ink);
 }
 
+.receipt-meta {
+  margin: 10px 0 0;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+
 

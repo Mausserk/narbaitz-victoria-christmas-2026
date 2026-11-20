@@ -11,7 +11,6 @@ import {
   sanitizeInputText,
   checkCooldownAllowed,
   postBallotToSheetWebhook,
-  formatBallotReceipt,
   type VictoriaBallotPayload,
 } from './utils/formSubmission';
 
@@ -159,7 +158,6 @@ function mountApp(): void {
   if (!root) return;
 
   const state = loadInitialState();
-  let lastReceiptText = '';
   let lastDeliveryNote = '';
 
   // Preload all 3 interactive vibe comic illustrations for instant switching
@@ -580,59 +578,37 @@ function mountApp(): void {
   const validationBox = el('div', 'validation-banner');
   validationBox.hidden = true;
 
-  const submitBtn = el('button', 'submit-btn', 'LOG My Victoria Wishes 🌲');
+  const submitBtn = el('button', 'submit-btn', 'Submit My Victoria Wishes 🌲');
   submitBtn.id = 'seal-scroll-btn';
   submitBtn.type = 'button';
 
   const receiptContainer = el('div');
+  let lastSubmittedName = '';
+  let lastDelivered = false;
 
-  function renderReceipt(): void {
+  function renderConfirmation(): void {
     receiptContainer.replaceChildren();
-    if (!lastReceiptText) return;
+    if (!lastDeliveryNote) return;
 
-    const box = el('div', 'receipt-card');
-    box.appendChild(el('h3', 'receipt-title', 'All Set! Send Your Summary to Family Chat'));
-    box.appendChild(el('p', 'section-lead', lastDeliveryNote));
-
-    const pre = el('pre', 'receipt-pre', lastReceiptText);
-    const actions = el('div', 'receipt-actions');
-
-    const shareBtn = el(
-      'button',
-      'action-btn action-btn-primary',
-      'Send Summary to Family Chat'
-    );
-    shareBtn.id = 'share-family-chat-btn';
-    shareBtn.type = 'button';
-    shareBtn.addEventListener('click', async () => {
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: 'My Victoria Trip Wishes (Dec 10–14)',
-            text: lastReceiptText,
-          });
-          return;
-        } catch {
-          // User cancelled or share unavailable; fall back to clipboard
-        }
-      }
-      await navigator.clipboard.writeText(lastReceiptText);
-      shareBtn.textContent = '✓ Copied! Paste in Family Chat';
-    });
-
-    const copyBtn = el('button', 'action-btn action-btn-secondary', 'Copy Summary');
-    copyBtn.id = 'copy-scroll-btn';
-    copyBtn.type = 'button';
-    copyBtn.addEventListener('click', async () => {
-      await navigator.clipboard.writeText(lastReceiptText);
-      copyBtn.textContent = '✓ Copied!';
-      window.setTimeout(() => {
-        copyBtn.textContent = 'Copy Summary';
-      }, 2800);
-    });
-
-    actions.append(shareBtn, copyBtn);
-    box.append(pre, actions);
+    const box = el('div', lastDelivered ? 'receipt-card' : 'validation-banner');
+    if (lastDelivered) {
+      box.appendChild(
+        el('h3', 'receipt-title', `✓ Submitted — Thank You, ${lastSubmittedName}!`)
+      );
+      box.appendChild(el('p', 'section-lead', lastDeliveryNote));
+      box.appendChild(
+        el(
+          'p',
+          'receipt-meta',
+          `Logged privately at ${new Date().toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: '2-digit',
+          })} · Dec 10–14 Victoria Trip`
+        )
+      );
+    } else {
+      box.textContent = lastDeliveryNote;
+    }
     receiptContainer.appendChild(box);
   }
 
@@ -661,13 +637,13 @@ function mountApp(): void {
 
     if (!checkCooldownAllowed()) {
       validationBox.hidden = false;
-      validationBox.textContent = 'Hang tight a couple seconds before resending.';
+      validationBox.textContent = 'Hang tight a couple seconds before resubmitting.';
       return;
     }
 
     validationBox.hidden = true;
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Carving into cedar...';
+    submitBtn.textContent = 'Sending privately to Woody Clause...';
 
     const advDim = sliderById.get('adventureVsRelax')!;
     const indDim = sliderById.get('indoorsVsOutdoors')!;
@@ -705,12 +681,15 @@ function mountApp(): void {
     };
 
     const result = await postBallotToSheetWebhook(payload);
-    lastReceiptText = formatBallotReceipt(payload);
+    lastSubmittedName = voter.name;
+    lastDelivered = result.delivered;
     lastDeliveryNote = result.note;
 
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Update & Re-Send My Wishes 🌲';
-    renderReceipt();
+    submitBtn.textContent = result.delivered
+      ? 'Update & Resubmit My Wishes 🌲'
+      : 'Submit My Victoria Wishes 🌲';
+    renderConfirmation();
     receiptContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 
